@@ -1,0 +1,182 @@
+{
+  "@@locale": "ar",
+  "welcomeText": "مرحبًا بك في تطبيق تشخيص النباتات!",
+  "diagnosePlant": "تشخيص النبات",
+  "contactExperts": "التواصل مع الخبراء",
+  "ourProducts": "منتجاتنا",
+  "awarenessGuide": "دليل التوعية",
+  "changeLanguage": "تغيير اللغة",
+  "plantDiagnosis": "تشخيص النبات",
+  "selectImage": "اختر صورة",
+  "result": "النتيجة",
+  "treatment": "العلاج",
+  "experts": "الخبراء",
+  "expertsPlaceholder": "دعم الخبراء سيتوفر قريبًا.",
+  "productsPlaceholder": "قائمة المنتجات ستتوفر قريبًا.",
+  "awarenessPlaceholder": "سيتم إضافة محتوى توعوي لاحقًا.",
+  "basicFarming": "أساسيات الزراعة",
+  "soilAdvice": "• اختيار التربة المناسبة: تحليلها كل عامين.",
+  "sunAdvice": "• تعرض النبات للشمس: 6-8 ساعات يوميًا.",
+  "wateringAdvice": "• الري المنتظم: عند جفاف التربة 2-3 سم.",
+  "diseasePrevention": "الوقاية من أمراض النبات",
+  "toolSanitation": "• تعقيم الأدوات قبل الزراعة.",
+  "cropRotation": "• ممارسة الدورة الزراعية.",
+  "seedSelection": "• استخدام بذور سليمة وموثوقة.",
+  "naturalPestControl": "مكافحة الآفات طبيعيًا",
+  "plantRepellents": "• زراعة نباتات طاردة (نعناع، ريحان).",
+  "organicSprays": "• استخدام بخاخات عضوية مثل زيت النيم.",
+  "beneficialInsects": "• تشجيع وجود الحشرات النافعة.",
+  "commonDiseases": "الأمراض الشائعة وطرق العلاج",
+  "disease": "المرض",
+  "symptoms": "الأعراض",
+  "seasonalTips": "نصائح موسمية",
+  "spring": "الربيع",
+  "summer": "الصيف",
+  "autumn": "الخريف",
+  "winter": "الشتاء",
+  "spring1": "تقليم النباتات المزهرة.",
+  "spring2": "إضافة السماد العضوي.",
+  "summer1": "الري في الصباح الباكر.",
+  "summer2": "استخدام المهاد للحفاظ على الرطوبة.",
+  "autumn1": "زراعة المحاصيل الشتوية.",
+  "autumn2": "تنظيف الحديقة من بقايا المحاصيل.",
+  "winter1": "حماية النباتات الحساسة بالصوبات.",
+  "winter2": "تقليل الري لتفادي التعفن.",
+  "resources": "مصادر موثوقة",
+  "youtubeChannels": "• قنوات زراعة على يوتيوب: زراعة بلكونة، مهندس زراعي",
+  "needHelp": "هل تحتاج مساعدة؟",
+  "contactExpertsInfo": "• استخدم ميزة 'التواصل مع الخبراء' داخل التطبيق.",
+  "powderyMildew": "البياض الدقيقي",
+  "powderyMildewSymptoms": "طبقة بيضاء على الأوراق",
+  "powderyMildewTreatment": "تهوية جيدة + رش بالكبريت",
+
+  "lateBlight": "اللفحة المتأخرة",
+  "lateBlightSymptoms": "بقع سوداء على الطماطم",
+  "lateBlightTreatment": "مبيد نحاسي + إزالة المصاب",
+  "pick_camera": "التقط صورة",
+  "confidence": "الدقة",
+  "rootRot": "التعفن الجذري",
+  "rootRotSymptoms": "اصفرار وموت تدريجي",
+  "rootRotTreatment": "تحسين التصريف + تقليل الري",
+
+  "aphids": "المن",
+  "aphidsSymptoms": "حشرات صغيرة تمتص العصارة",
+  "aphidsTreatment": "بخاخ النيم + ماء وصابون",
+  
+  "apple_scab": "جرب التفاح",
+  "apple_scab_treatment": "استخدم أصناف مقاومة، رش مبيدات فطرية مثل الكابتان أو المانكوزيب، وأزل الأوراق المصابة.",
+
+  "apple_black_rot": "العفن الأسود في التفاح",
+  "apple_black_rot_treatment": "قم بتقليم الفروع المصابة، أزل الثمار المتعفنة، ورش مبيدات فطرية مثل ثيوفانات-ميثيل.",
+
+  "apple_cedar_apple_rust": "صدأ التفاح الأرز",
+  "apple_cedar_apple_rust_treatment": "أزل أشجار الأرز القريبة، رش مبيدات وقائية مثل مايكلوبوتانيل في بداية الموسم.",
+
+  "apple_healthy": "ورقة تفاح سليمة",
+  "apple_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "blueberry_healthy": "ورقة توت أزرق سليمة",
+  "blueberry_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "cherry_powdery_mildew": "البياض الدقيقي في الكرز",
+  "cherry_powdery_mildew_treatment": "رش الكبريت أو مايكلوبوتانيل، قص الفروع المصابة، وحسّن التهوية.",
+
+  "cherry_healthy": "ورقة كرز سليمة",
+  "cherry_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "corn_gray_leaf_spot": "بقعة الأوراق الرمادية في الذرة",
+  "corn_gray_leaf_spot_treatment": "قم بتدوير المحاصيل، استخدم هجن مقاومة، ورش مبيدات مثل ستروبيليورين أو تريازول.",
+
+  "corn_common_rust": "الصدأ العادي في الذرة",
+  "corn_common_rust_treatment": "ازرع أصناف مقاومة، ورش مبيدات عند شدة الإصابة.",
+
+  "corn_northern_leaf_blight": "لفحة الأوراق الشمالية في الذرة",
+  "corn_northern_leaf_blight_treatment": "استخدم هجن مقاومة، قم بتدوير المحاصيل، ورش مبيدات مثل أزوكسستروبين.",
+
+  "corn_healthy": "ورقة ذرة سليمة",
+  "corn_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "grape_black_rot": "العفن الأسود في العنب",
+  "grape_black_rot_treatment": "أزل الثمار المتعفنة، رش مبيدات مثل مايكلوبوتانيل أو كابتان، وحافظ على التقليم.",
+
+  "grape_esca": "إسكا العنب (الحصبة السوداء)",
+  "grape_esca_treatment": "قم بتقليم الخشب المصاب، إزالة الكروم الضعيفة، ورش مبيدات وقائية.",
+
+  "grape_leaf_blight": "لفحة أوراق العنب",
+  "grape_leaf_blight_treatment": "حسّن التهوية، أزل الأوراق المصابة، ورش مبيدات مثل مانكوزيب.",
+
+  "grape_healthy": "ورقة عنب سليمة",
+  "grape_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "orange_haunglongbing": "التدهور السريع (جرينينغ الحمضيات)",
+  "orange_haunglongbing_treatment": "أزل الأشجار المصابة، سيطر على حشرة الناقلة (السيليد)، واستخدم شتلات سليمة.",
+
+  "peach_bacterial_spot": "التبقع البكتيري في الخوخ",
+  "peach_bacterial_spot_treatment": "رش مبيدات نحاسية، تجنب الري بالرش، واستخدم أصناف مقاومة.",
+
+  "peach_healthy": "ورقة خوخ سليمة",
+  "peach_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "pepper_bacterial_spot": "التبقع البكتيري في الفلفل",
+  "pepper_bacterial_spot_treatment": "رش مبيدات نحاسية، قم بتدوير المحاصيل، واستخدم أصناف مقاومة.",
+
+  "pepper_healthy": "ورقة فلفل سليمة",
+  "pepper_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "potato_early_blight": "اللفحة المبكرة في البطاطس",
+  "potato_early_blight_treatment": "استخدم أصناف مقاومة، قم بتدوير المحاصيل، ورش مبيدات مثل كلوروثالونيل أو مانكوزيب.",
+
+  "potato_late_blight": "اللفحة المتأخرة في البطاطس",
+  "potato_late_blight_treatment": "رش مبيدات مثل ميتالاكسيل أو سيموكسانيل، وتخلص من النباتات المصابة.",
+
+  "potato_healthy": "ورقة بطاطس سليمة",
+  "potato_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "raspberry_healthy": "ورقة توت علّيق سليمة",
+  "raspberry_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "soybean_healthy": "ورقة فول صويا سليمة",
+  "soybean_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "squash_powdery_mildew": "البياض الدقيقي في القرع",
+  "squash_powdery_mildew_treatment": "رش الكبريت أو زيت النيم أو مبيدات جهازية، وحسّن التهوية.",
+
+  "strawberry_leaf_scorch": "حرق أوراق الفراولة",
+  "strawberry_leaf_scorch_treatment": "أزل النباتات المصابة، حسّن الصرف، ورش مبيدات.",
+
+  "strawberry_healthy": "ورقة فراولة سليمة",
+  "strawberry_healthy_treatment": "لا يحتاج إلى علاج.",
+
+  "tomato_bacterial_spot": "التبقع البكتيري في الطماطم",
+  "tomato_bacterial_spot_treatment": "استخدم أصناف مقاومة، رش مبيدات نحاسية، وتجنب الري بالرش.",
+
+  "tomato_early_blight": "اللفحة المبكرة في الطماطم",
+  "tomato_early_blight_treatment": "قم بتدوير المحاصيل، ادعم النباتات بالعصي، ورش مبيدات مثل كلوروثالونيل.",
+
+  "tomato_late_blight": "اللفحة المتأخرة في الطماطم",
+  "tomato_late_blight_treatment": "تخلص من النباتات المصابة، قم بتدوير المحاصيل، ورش مبيدات مثل مانكوزيب أو سيموكسانيل.",
+
+  "tomato_leaf_mold": "عفن أوراق الطماطم",
+  "tomato_leaf_mold_treatment": "حسّن التهوية في البيوت البلاستيكية، أزل الأوراق المصابة، ورش مبيدات.",
+
+  "tomato_septoria_leaf_spot": "تبقع أوراق الطماطم (سيبتوريا)",
+  "tomato_septoria_leaf_spot_treatment": "أزل الأوراق المصابة، ادعم النباتات، ورش مبيدات مثل مانكوزيب.",
+
+  "tomato_spider_mites": "العناكب الحمراء في الطماطم",
+  "tomato_spider_mites_treatment": "رش مبيدات عناكب، استخدم زيت النيم، وحافظ على الري الجيد.",
+
+  "tomato_target_spot": "البقعة الهدفية في الطماطم",
+  "tomato_target_spot_treatment": "قم بتدوير المحاصيل، أزل بقايا النباتات المصابة، ورش مبيدات مثل مانكوزيب.",
+
+  "tomato_mosaic_virus": "فيروس موزاييك الطماطم",
+  "tomato_mosaic_virus_treatment": "أزل النباتات المصابة، عقّم الأدوات، واستخدم أصناف مقاومة.",
+
+  "tomato_yellow_leaf_curl": "فيروس تجعد أوراق الطماطم الصفراء",
+  "tomato_yellow_leaf_curl_treatment": "سيطر على الذباب الأبيض، أزل النباتات المصابة، وزرع أصناف مقاومة.",
+
+  "tomato_healthy": "ورقة طماطم سليمة",
+  "tomato_healthy_treatment": "لا يحتاج إلى علاج",
+  "diagnosis_failed": "فشل التشخيص."
+
+}
+

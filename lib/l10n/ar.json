@@ -1,0 +1,17 @@
+{
+  "powderyMildew": "البياض الدقيقي",
+  "powderyMildewSymptoms": "طبقة بيضاء على الأوراق",
+  "powderyMildewTreatment": "تهوية جيدة + رش بالكبريت",
+
+  "lateBlight": "اللفحة المتأخرة",
+  "lateBlightSymptoms": "بقع سوداء على الطماطم",
+  "lateBlightTreatment": "مبيد نحاسي + إزالة المصاب",
+
+  "rootRot": "التعفن الجذري",
+  "rootRotSymptoms": "اصفرار وموت تدريجي",
+  "rootRotTreatment": "تحسين التصريف + تقليل الري",
+
+  "aphids": "المن",
+  "aphidsSymptoms": "حشرات صغيرة تمتص العصارة",
+  "aphidsTreatment": "بخاخ النيم + ماء وصابون"
+}

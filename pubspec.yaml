@@ -1,0 +1,54 @@
+name: plant_diagnosis_app
+description: A Flutter app to diagnose plant diseases and show treatments.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  http: ^1.1.0
+  image_picker: ^1.0.7
+  file_picker: ^10.2.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/images/soil.jpg
+    - assets/images/protection.jpg
+    - assets/images/pests.jpg
+    - assets/images/diseases.jpg
+    - assets/images/seasons.jpg
+    - assets/images/books.jpg
+    - assets/images/support.jpg
+    - assets/images/ifsoil_renovation_03.jpg
+    - assets/images/table_zinc.jpg
+    - assets/images/table_cap.jpg
+    - assets/images/good_bank_01.jpg
+    - assets/images/gisafol.jpg
+    - assets/images/diamond.jpg
+    - assets/images/sulfurea_blaris_liquid_01.jpg
+    - assets/images/carpatar_01_01_01.jpg
+    - assets/images/chlorboost_03.jpg
+    - assets/images/quajimax_02_02.jpg
+    - assets/images/key_spark.jpg
+    - assets/images/key_star_03.jpg
+    - assets/images/microsol_40s.jpg
+    - assets/images/nutri_n_spark.jpg
+    - assets/images/nutri_zinc_spark_05.jpg
+    - assets/images/nutri_zinc.jpg
+    - assets/images/sulfurea_blaris_liquid_01.jpg
+    - assets/images/nutri_spray_leaf_stop.jpg
+    - assets/images/high_k.jpg
+    - assets/images/timazol.jpeg
+    - assets/images/timazol1.jpeg
+    - assets/images/timazol2.jpeg
+    - assets/images/timazol3.jpeg
+    - assets/images/timazol4.jpeg
+    - assets/images/timazol4.jpeg

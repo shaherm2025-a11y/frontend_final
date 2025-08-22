@@ -1,0 +1,30 @@
+name: plant_diagnosis_app
+description: A Flutter app to diagnose plant diseases and show treatments.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.17.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  http: ^0.13.5
+  image_picker: ^1.0.4
+  file_picker: ^10.1.1
+  
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/images/soil.jpg
+    - assets/images/protection.jpg
+    - assets/images/pests.jpg
+    - assets/images/diseases.jpg
+    - assets/images/seasons.jpg
+    - assets/images/books.jpg
+    - assets/images/support.jpg
+
