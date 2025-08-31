@@ -195,254 +195,218 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get apple_scab_treatment =>
-      'استخدم أصناف مقاومة، رش مبيدات فطرية مثل الكابتان أو المانكوزيب، وأزل الأوراق المصابة.';
+      'استخدم أصناف مقاومة، رش المبيدات الفطرية، واقص الأوراق المصابة.';
 
   @override
   String get apple_black_rot => 'العفن الأسود في التفاح';
 
   @override
   String get apple_black_rot_treatment =>
-      'قم بتقليم الفروع المصابة، أزل الثمار المتعفنة، ورش مبيدات فطرية مثل ثيوفانات-ميثيل.';
+      'إزالة الثمار الجافة، استخدام مبيدات فطرية، وتحسين التهوية.';
 
   @override
-  String get apple_cedar_apple_rust => 'صدأ التفاح الأرز';
+  String get apple_cedar_apple_rust => 'صدأ الأرز في التفاح';
 
   @override
   String get apple_cedar_apple_rust_treatment =>
-      'أزل أشجار الأرز القريبة، رش مبيدات وقائية مثل مايكلوبوتانيل في بداية الموسم.';
+      'إزالة أشجار الأرز المجاورة، استخدام أصناف مقاومة، ورش مبيدات.';
 
   @override
-  String get apple_healthy => 'ورقة تفاح سليمة';
+  String get apple_healthy => 'تفاح سليم';
 
   @override
-  String get apple_healthy_treatment => 'لا يحتاج إلى علاج.';
-
-  @override
-  String get blueberry_healthy => 'ورقة توت أزرق سليمة';
-
-  @override
-  String get blueberry_healthy_treatment => 'لا يحتاج إلى علاج.';
+  String get blueberry_healthy => 'عنبية سليمة';
 
   @override
   String get cherry_powdery_mildew => 'البياض الدقيقي في الكرز';
 
   @override
   String get cherry_powdery_mildew_treatment =>
-      'رش الكبريت أو مايكلوبوتانيل، قص الفروع المصابة، وحسّن التهوية.';
+      'رش الكبريت، تقليم الأجزاء المصابة، وتوفير مسافات مناسبة.';
 
   @override
-  String get cherry_healthy => 'ورقة كرز سليمة';
+  String get cherry_healthy => 'كرز سليم';
 
   @override
-  String get cherry_healthy_treatment => 'لا يحتاج إلى علاج.';
-
-  @override
-  String get corn_gray_leaf_spot => 'بقعة الأوراق الرمادية في الذرة';
+  String get corn_gray_leaf_spot => 'تبقع أوراق الذرة الرمادي';
 
   @override
   String get corn_gray_leaf_spot_treatment =>
-      'قم بتدوير المحاصيل، استخدم هجن مقاومة، ورش مبيدات مثل ستروبيليورين أو تريازول.';
+      'زراعة أصناف مقاومة، تناوب المحاصيل، واستخدام المبيدات الفطرية.';
 
   @override
-  String get corn_common_rust => 'الصدأ العادي في الذرة';
+  String get corn_common_rust => 'صدأ الذرة الشائع';
 
   @override
   String get corn_common_rust_treatment =>
-      'ازرع أصناف مقاومة، ورش مبيدات عند شدة الإصابة.';
+      'زراعة أصناف مقاومة، متابعة الحقل، واستخدام مبيدات عند الحاجة.';
 
   @override
-  String get corn_northern_leaf_blight => 'لفحة الأوراق الشمالية في الذرة';
+  String get corn_northern_leaf_blight => 'لفحة أوراق الذرة الشمالية';
 
   @override
   String get corn_northern_leaf_blight_treatment =>
-      'استخدم هجن مقاومة، قم بتدوير المحاصيل، ورش مبيدات مثل أزوكسستروبين.';
+      'تناوب المحاصيل، استخدام المبيدات، وتجنب الزراعة المستمرة للذرة.';
 
   @override
-  String get corn_healthy => 'ورقة ذرة سليمة';
-
-  @override
-  String get corn_healthy_treatment => 'لا يحتاج إلى علاج.';
+  String get corn_healthy => 'ذرة سليمة';
 
   @override
   String get grape_black_rot => 'العفن الأسود في العنب';
 
   @override
   String get grape_black_rot_treatment =>
-      'أزل الثمار المتعفنة، رش مبيدات مثل مايكلوبوتانيل أو كابتان، وحافظ على التقليم.';
+      'إزالة الأجزاء المصابة، استخدام مبيدات، وتحسين التهوية.';
 
   @override
   String get grape_esca => 'إسكا العنب (الحصبة السوداء)';
 
   @override
   String get grape_esca_treatment =>
-      'قم بتقليم الخشب المصاب، إزالة الكروم الضعيفة، ورش مبيدات وقائية.';
+      'تقليم الكروم المصابة، تجنب الجروح، وإزالة النباتات المريضة.';
 
   @override
   String get grape_leaf_blight => 'لفحة أوراق العنب';
 
   @override
   String get grape_leaf_blight_treatment =>
-      'حسّن التهوية، أزل الأوراق المصابة، ورش مبيدات مثل مانكوزيب.';
+      'استخدام المبيدات وإزالة الأوراق المصابة.';
 
   @override
-  String get grape_healthy => 'ورقة عنب سليمة';
+  String get grape_healthy => 'عنب سليم';
 
   @override
-  String get grape_healthy_treatment => 'لا يحتاج إلى علاج.';
-
-  @override
-  String get orange_haunglongbing => 'التدهور السريع (جرينينغ الحمضيات)';
-
-  @override
-  String get orange_haunglongbing_treatment =>
-      'أزل الأشجار المصابة، سيطر على حشرة الناقلة (السيليد)، واستخدم شتلات سليمة.';
-
-  @override
-  String get peach_bacterial_spot => 'التبقع البكتيري في الخوخ';
+  String get peach_bacterial_spot => 'تبقع بكتيري في الخوخ';
 
   @override
   String get peach_bacterial_spot_treatment =>
-      'رش مبيدات نحاسية، تجنب الري بالرش، واستخدم أصناف مقاومة.';
+      'رش النحاس، استخدام أصناف مقاومة.';
 
   @override
-  String get peach_healthy => 'ورقة خوخ سليمة';
-
-  @override
-  String get peach_healthy_treatment => 'لا يحتاج إلى علاج.';
-
-  @override
-  String get pepper_bacterial_spot => 'التبقع البكتيري في الفلفل';
-
-  @override
-  String get pepper_bacterial_spot_treatment =>
-      'رش مبيدات نحاسية، قم بتدوير المحاصيل، واستخدم أصناف مقاومة.';
-
-  @override
-  String get pepper_healthy => 'ورقة فلفل سليمة';
-
-  @override
-  String get pepper_healthy_treatment => 'لا يحتاج إلى علاج.';
+  String get peach_healthy => 'خوخ سليم';
 
   @override
   String get potato_early_blight => 'اللفحة المبكرة في البطاطس';
 
   @override
   String get potato_early_blight_treatment =>
-      'استخدم أصناف مقاومة، قم بتدوير المحاصيل، ورش مبيدات مثل كلوروثالونيل أو مانكوزيب.';
+      'زراعة أصناف مقاومة، تناوب المحاصيل، واستخدام المبيدات الفطرية.';
 
   @override
   String get potato_late_blight => 'اللفحة المتأخرة في البطاطس';
 
   @override
   String get potato_late_blight_treatment =>
-      'رش مبيدات مثل ميتالاكسيل أو سيموكسانيل، وتخلص من النباتات المصابة.';
+      'إتلاف النباتات المصابة، تجنب الري العلوي، واستخدام المبيدات.';
 
   @override
-  String get potato_healthy => 'ورقة بطاطس سليمة';
+  String get potato_healthy => 'بطاطس سليمة';
 
   @override
-  String get potato_healthy_treatment => 'لا يحتاج إلى علاج.';
+  String get pepper_bacterial_spot => 'تبقع بكتيري في الفلفل';
 
   @override
-  String get raspberry_healthy => 'ورقة توت علّيق سليمة';
+  String get pepper_bacterial_spot_treatment =>
+      'استخدام بذور معتمدة، رش النحاس، وتجنب الري العلوي.';
 
   @override
-  String get raspberry_healthy_treatment => 'لا يحتاج إلى علاج.';
+  String get pepper_healthy => 'فلفل سليم';
 
   @override
-  String get soybean_healthy => 'ورقة فول صويا سليمة';
-
-  @override
-  String get soybean_healthy_treatment => 'لا يحتاج إلى علاج.';
-
-  @override
-  String get squash_powdery_mildew => 'البياض الدقيقي في القرع';
-
-  @override
-  String get squash_powdery_mildew_treatment =>
-      'رش الكبريت أو زيت النيم أو مبيدات جهازية، وحسّن التهوية.';
-
-  @override
-  String get strawberry_leaf_scorch => 'حرق أوراق الفراولة';
-
-  @override
-  String get strawberry_leaf_scorch_treatment =>
-      'أزل النباتات المصابة، حسّن الصرف، ورش مبيدات.';
-
-  @override
-  String get strawberry_healthy => 'ورقة فراولة سليمة';
-
-  @override
-  String get strawberry_healthy_treatment => 'لا يحتاج إلى علاج.';
-
-  @override
-  String get tomato_bacterial_spot => 'التبقع البكتيري في الطماطم';
+  String get tomato_bacterial_spot => 'تبقع بكتيري في الطماطم';
 
   @override
   String get tomato_bacterial_spot_treatment =>
-      'استخدم أصناف مقاومة، رش مبيدات نحاسية، وتجنب الري بالرش.';
+      'استخدام أصناف مقاومة، تناوب المحاصيل، ورش النحاس.';
 
   @override
   String get tomato_early_blight => 'اللفحة المبكرة في الطماطم';
 
   @override
   String get tomato_early_blight_treatment =>
-      'قم بتدوير المحاصيل، ادعم النباتات بالعصي، ورش مبيدات مثل كلوروثالونيل.';
+      'إزالة الأوراق المصابة، تناوب المحاصيل، واستخدام المبيدات.';
 
   @override
   String get tomato_late_blight => 'اللفحة المتأخرة في الطماطم';
 
   @override
   String get tomato_late_blight_treatment =>
-      'تخلص من النباتات المصابة، قم بتدوير المحاصيل، ورش مبيدات مثل مانكوزيب أو سيموكسانيل.';
+      'إتلاف النباتات المصابة ورش المبيدات.';
 
   @override
   String get tomato_leaf_mold => 'عفن أوراق الطماطم';
 
   @override
   String get tomato_leaf_mold_treatment =>
-      'حسّن التهوية في البيوت البلاستيكية، أزل الأوراق المصابة، ورش مبيدات.';
+      'تحسين التهوية، تجنب الري العلوي، واستخدام المبيدات.';
 
   @override
-  String get tomato_septoria_leaf_spot => 'تبقع أوراق الطماطم (سيبتوريا)';
+  String get tomato_septoria_leaf_spot => 'تبقع أوراق الطماطم (سبتوريا)';
 
   @override
   String get tomato_septoria_leaf_spot_treatment =>
-      'أزل الأوراق المصابة، ادعم النباتات، ورش مبيدات مثل مانكوزيب.';
+      'تناوب المحاصيل، إزالة الأوراق المصابة، ورش المبيدات.';
 
   @override
   String get tomato_spider_mites => 'العناكب الحمراء في الطماطم';
 
   @override
   String get tomato_spider_mites_treatment =>
-      'رش مبيدات عناكب، استخدم زيت النيم، وحافظ على الري الجيد.';
+      'رش مبيدات acaricides، تشجيع الأعداء الحيوية، والري الجيد.';
 
   @override
-  String get tomato_target_spot => 'البقعة الهدفية في الطماطم';
+  String get tomato_target_spot => 'تبقع الهدف في الطماطم';
 
   @override
   String get tomato_target_spot_treatment =>
-      'قم بتدوير المحاصيل، أزل بقايا النباتات المصابة، ورش مبيدات مثل مانكوزيب.';
-
-  @override
-  String get tomato_mosaic_virus => 'فيروس موزاييك الطماطم';
-
-  @override
-  String get tomato_mosaic_virus_treatment =>
-      'أزل النباتات المصابة، عقّم الأدوات، واستخدم أصناف مقاومة.';
+      'استخدام المبيدات وإزالة بقايا النباتات المصابة.';
 
   @override
   String get tomato_yellow_leaf_curl => 'فيروس تجعد أوراق الطماطم الصفراء';
 
   @override
   String get tomato_yellow_leaf_curl_treatment =>
-      'سيطر على الذباب الأبيض، أزل النباتات المصابة، وزرع أصناف مقاومة.';
+      'مكافحة الذباب الأبيض، زراعة أصناف مقاومة، واستخدام زيت النيم.';
 
   @override
-  String get tomato_healthy => 'ورقة طماطم سليمة';
+  String get tomato_mosaic_virus => 'فيروس موزاييك الطماطم';
 
   @override
-  String get tomato_healthy_treatment => 'لا يحتاج إلى علاج';
+  String get tomato_mosaic_virus_treatment =>
+      'إزالة النباتات المصابة، تعقيم الأدوات، ومكافحة المن.';
+
+  @override
+  String get tomato_healthy => 'طماطم سليمة';
+
+  @override
+  String get squash_powdery_mildew => 'البياض الدقيقي في الكوسة';
+
+  @override
+  String get squash_powdery_mildew_treatment =>
+      'رش المبيدات، زراعة أصناف مقاومة، وتجنب الزراعة الكثيفة.';
+
+  @override
+  String get orange_hlb => 'التدهور السريع (HLB) في البرتقال';
+
+  @override
+  String get orange_hlb_treatment =>
+      'مكافحة حشرة البسيلا، إزالة الأشجار المصابة، واستخدام أصول مقاومة.';
+
+  @override
+  String get strawberry_leaf_scorch => 'احتراق أوراق الفراولة';
+
+  @override
+  String get strawberry_leaf_scorch_treatment =>
+      'إزالة الأوراق المصابة، الري المناسب، واستخدام المبيدات.';
+
+  @override
+  String get strawberry_healthy => 'فراولة سليمة';
+
+  @override
+  String get soybean_healthy => 'فول صويا سليم';
+
+  @override
+  String get raspberry_healthy => 'توت علّيق سليم';
 
   @override
   String get diagnosis_failed => 'فشل التشخيص.';

@@ -467,7 +467,7 @@ abstract class AppLocalizations {
   /// No description provided for @apple_scab_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Use resistant varieties, apply fungicides like captan or mancozeb, and remove infected leaves.'**
+  /// **'Use resistant varieties, apply fungicides, and prune infected leaves.'**
   String get apple_scab_treatment;
 
   /// No description provided for @apple_black_rot.
@@ -479,44 +479,32 @@ abstract class AppLocalizations {
   /// No description provided for @apple_black_rot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Prune infected branches, remove mummified fruits, and apply fungicides such as thiophanate-methyl.'**
+  /// **'Remove mummified fruit, apply fungicides, and improve air circulation.'**
   String get apple_black_rot_treatment;
 
   /// No description provided for @apple_cedar_apple_rust.
   ///
   /// In en, this message translates to:
-  /// **'Apple Cedar Apple Rust'**
+  /// **'Apple Cedar Rust'**
   String get apple_cedar_apple_rust;
 
   /// No description provided for @apple_cedar_apple_rust_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Remove nearby cedar trees, apply preventive fungicides like myclobutanil during early growth.'**
+  /// **'Remove nearby cedar trees, use resistant cultivars, and apply fungicides.'**
   String get apple_cedar_apple_rust_treatment;
 
   /// No description provided for @apple_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Apple Leaf'**
+  /// **'Healthy Apple'**
   String get apple_healthy;
-
-  /// No description provided for @apple_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get apple_healthy_treatment;
 
   /// No description provided for @blueberry_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Blueberry Leaf'**
+  /// **'Healthy Blueberry'**
   String get blueberry_healthy;
-
-  /// No description provided for @blueberry_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get blueberry_healthy_treatment;
 
   /// No description provided for @cherry_powdery_mildew.
   ///
@@ -527,20 +515,14 @@ abstract class AppLocalizations {
   /// No description provided for @cherry_powdery_mildew_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Apply fungicides like sulfur or myclobutanil, prune infected shoots, and ensure good airflow.'**
+  /// **'Apply sulfur-based fungicides, prune affected parts, and ensure proper spacing.'**
   String get cherry_powdery_mildew_treatment;
 
   /// No description provided for @cherry_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Cherry Leaf'**
+  /// **'Healthy Cherry'**
   String get cherry_healthy;
-
-  /// No description provided for @cherry_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get cherry_healthy_treatment;
 
   /// No description provided for @corn_gray_leaf_spot.
   ///
@@ -551,7 +533,7 @@ abstract class AppLocalizations {
   /// No description provided for @corn_gray_leaf_spot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Rotate crops, use resistant hybrids, and apply fungicides (strobilurins or triazoles).'**
+  /// **'Use resistant hybrids, rotate crops, and apply fungicides.'**
   String get corn_gray_leaf_spot_treatment;
 
   /// No description provided for @corn_common_rust.
@@ -563,7 +545,7 @@ abstract class AppLocalizations {
   /// No description provided for @corn_common_rust_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Plant resistant varieties, and apply fungicides if disease pressure is high.'**
+  /// **'Plant resistant varieties, monitor crops, and apply fungicides if severe.'**
   String get corn_common_rust_treatment;
 
   /// No description provided for @corn_northern_leaf_blight.
@@ -575,20 +557,14 @@ abstract class AppLocalizations {
   /// No description provided for @corn_northern_leaf_blight_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Use resistant hybrids, rotate crops, and apply fungicides like azoxystrobin.'**
+  /// **'Rotate crops, apply fungicides, and avoid continuous corn planting.'**
   String get corn_northern_leaf_blight_treatment;
 
   /// No description provided for @corn_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Corn Leaf'**
+  /// **'Healthy Corn'**
   String get corn_healthy;
-
-  /// No description provided for @corn_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get corn_healthy_treatment;
 
   /// No description provided for @grape_black_rot.
   ///
@@ -599,7 +575,7 @@ abstract class AppLocalizations {
   /// No description provided for @grape_black_rot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Remove mummified berries, apply fungicides like myclobutanil or captan, and ensure pruning.'**
+  /// **'Remove infected parts, apply fungicides, and ensure good ventilation.'**
   String get grape_black_rot_treatment;
 
   /// No description provided for @grape_esca.
@@ -611,7 +587,7 @@ abstract class AppLocalizations {
   /// No description provided for @grape_esca_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Prune infected wood, remove weak vines, and apply fungicides as preventive measures.'**
+  /// **'Prune infected vines, avoid wounding, and remove diseased plants.'**
   String get grape_esca_treatment;
 
   /// No description provided for @grape_leaf_blight.
@@ -623,32 +599,14 @@ abstract class AppLocalizations {
   /// No description provided for @grape_leaf_blight_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Improve air circulation, remove infected leaves, and use fungicides such as mancozeb.'**
+  /// **'Use fungicides and remove infected leaves.'**
   String get grape_leaf_blight_treatment;
 
   /// No description provided for @grape_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Grape Leaf'**
+  /// **'Healthy Grape'**
   String get grape_healthy;
-
-  /// No description provided for @grape_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get grape_healthy_treatment;
-
-  /// No description provided for @orange_haunglongbing.
-  ///
-  /// In en, this message translates to:
-  /// **'Citrus Greening (HLB)'**
-  String get orange_haunglongbing;
-
-  /// No description provided for @orange_haunglongbing_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove infected trees, control psyllid vector insects, and use certified healthy seedlings.'**
-  String get orange_haunglongbing_treatment;
 
   /// No description provided for @peach_bacterial_spot.
   ///
@@ -659,44 +617,14 @@ abstract class AppLocalizations {
   /// No description provided for @peach_bacterial_spot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Apply copper-based sprays, avoid overhead irrigation, and plant resistant varieties.'**
+  /// **'Apply copper sprays and use resistant varieties.'**
   String get peach_bacterial_spot_treatment;
 
   /// No description provided for @peach_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Peach Leaf'**
+  /// **'Healthy Peach'**
   String get peach_healthy;
-
-  /// No description provided for @peach_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get peach_healthy_treatment;
-
-  /// No description provided for @pepper_bacterial_spot.
-  ///
-  /// In en, this message translates to:
-  /// **'Pepper Bacterial Spot'**
-  String get pepper_bacterial_spot;
-
-  /// No description provided for @pepper_bacterial_spot_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'Apply copper fungicides, rotate crops, and use resistant cultivars.'**
-  String get pepper_bacterial_spot_treatment;
-
-  /// No description provided for @pepper_healthy.
-  ///
-  /// In en, this message translates to:
-  /// **'Healthy Pepper Leaf'**
-  String get pepper_healthy;
-
-  /// No description provided for @pepper_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get pepper_healthy_treatment;
 
   /// No description provided for @potato_early_blight.
   ///
@@ -707,7 +635,7 @@ abstract class AppLocalizations {
   /// No description provided for @potato_early_blight_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Use resistant varieties, rotate crops, and apply fungicides like chlorothalonil or mancozeb.'**
+  /// **'Use resistant varieties, rotate crops, and apply fungicides.'**
   String get potato_early_blight_treatment;
 
   /// No description provided for @potato_late_blight.
@@ -719,80 +647,32 @@ abstract class AppLocalizations {
   /// No description provided for @potato_late_blight_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Apply fungicides such as metalaxyl or cymoxanil, and destroy infected plants.'**
+  /// **'Destroy infected plants, avoid overhead watering, and apply fungicides.'**
   String get potato_late_blight_treatment;
 
   /// No description provided for @potato_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Potato Leaf'**
+  /// **'Healthy Potato'**
   String get potato_healthy;
 
-  /// No description provided for @potato_healthy_treatment.
+  /// No description provided for @pepper_bacterial_spot.
   ///
   /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get potato_healthy_treatment;
+  /// **'Pepper Bacterial Spot'**
+  String get pepper_bacterial_spot;
 
-  /// No description provided for @raspberry_healthy.
+  /// No description provided for @pepper_bacterial_spot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Raspberry Leaf'**
-  String get raspberry_healthy;
+  /// **'Use certified seeds, apply copper fungicides, and avoid overhead watering.'**
+  String get pepper_bacterial_spot_treatment;
 
-  /// No description provided for @raspberry_healthy_treatment.
+  /// No description provided for @pepper_healthy.
   ///
   /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get raspberry_healthy_treatment;
-
-  /// No description provided for @soybean_healthy.
-  ///
-  /// In en, this message translates to:
-  /// **'Healthy Soybean Leaf'**
-  String get soybean_healthy;
-
-  /// No description provided for @soybean_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get soybean_healthy_treatment;
-
-  /// No description provided for @squash_powdery_mildew.
-  ///
-  /// In en, this message translates to:
-  /// **'Squash Powdery Mildew'**
-  String get squash_powdery_mildew;
-
-  /// No description provided for @squash_powdery_mildew_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'Apply sulfur sprays, neem oil, or systemic fungicides. Ensure good airflow.'**
-  String get squash_powdery_mildew_treatment;
-
-  /// No description provided for @strawberry_leaf_scorch.
-  ///
-  /// In en, this message translates to:
-  /// **'Strawberry Leaf Scorch'**
-  String get strawberry_leaf_scorch;
-
-  /// No description provided for @strawberry_leaf_scorch_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove infected plants, improve field drainage, and apply fungicides.'**
-  String get strawberry_leaf_scorch_treatment;
-
-  /// No description provided for @strawberry_healthy.
-  ///
-  /// In en, this message translates to:
-  /// **'Healthy Strawberry Leaf'**
-  String get strawberry_healthy;
-
-  /// No description provided for @strawberry_healthy_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get strawberry_healthy_treatment;
+  /// **'Healthy Pepper'**
+  String get pepper_healthy;
 
   /// No description provided for @tomato_bacterial_spot.
   ///
@@ -803,7 +683,7 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_bacterial_spot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Use resistant varieties, apply copper fungicides, and avoid overhead irrigation.'**
+  /// **'Use resistant varieties, rotate crops, and apply copper fungicides.'**
   String get tomato_bacterial_spot_treatment;
 
   /// No description provided for @tomato_early_blight.
@@ -815,7 +695,7 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_early_blight_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Rotate crops, stake plants, and apply fungicides like chlorothalonil.'**
+  /// **'Remove infected leaves, rotate crops, and apply fungicides.'**
   String get tomato_early_blight_treatment;
 
   /// No description provided for @tomato_late_blight.
@@ -827,7 +707,7 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_late_blight_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Destroy infected plants, rotate crops, and apply fungicides such as mancozeb or cymoxanil.'**
+  /// **'Destroy infected plants and apply fungicides.'**
   String get tomato_late_blight_treatment;
 
   /// No description provided for @tomato_leaf_mold.
@@ -839,7 +719,7 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_leaf_mold_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Ensure ventilation in greenhouses, remove infected leaves, and apply fungicides.'**
+  /// **'Provide ventilation, avoid overhead watering, and use fungicides.'**
   String get tomato_leaf_mold_treatment;
 
   /// No description provided for @tomato_septoria_leaf_spot.
@@ -851,7 +731,7 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_septoria_leaf_spot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Remove infected leaves, stake plants, and apply fungicides like mancozeb.'**
+  /// **'Rotate crops, remove infected leaves, and apply fungicides.'**
   String get tomato_septoria_leaf_spot_treatment;
 
   /// No description provided for @tomato_spider_mites.
@@ -863,7 +743,7 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_spider_mites_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Spray with miticides, use neem oil, and maintain good irrigation.'**
+  /// **'Spray miticides, encourage natural predators, and irrigate properly.'**
   String get tomato_spider_mites_treatment;
 
   /// No description provided for @tomato_target_spot.
@@ -875,20 +755,8 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_target_spot_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Rotate crops, remove infected debris, and use fungicides such as mancozeb.'**
+  /// **'Use fungicides and remove infected plant debris.'**
   String get tomato_target_spot_treatment;
-
-  /// No description provided for @tomato_mosaic_virus.
-  ///
-  /// In en, this message translates to:
-  /// **'Tomato Mosaic Virus'**
-  String get tomato_mosaic_virus;
-
-  /// No description provided for @tomato_mosaic_virus_treatment.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove infected plants, disinfect tools, and use resistant cultivars.'**
-  String get tomato_mosaic_virus_treatment;
 
   /// No description provided for @tomato_yellow_leaf_curl.
   ///
@@ -899,20 +767,80 @@ abstract class AppLocalizations {
   /// No description provided for @tomato_yellow_leaf_curl_treatment.
   ///
   /// In en, this message translates to:
-  /// **'Control whiteflies, remove infected plants, and plant resistant varieties.'**
+  /// **'Control whiteflies, use resistant varieties, and apply neem oil.'**
   String get tomato_yellow_leaf_curl_treatment;
+
+  /// No description provided for @tomato_mosaic_virus.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomato Mosaic Virus'**
+  String get tomato_mosaic_virus;
+
+  /// No description provided for @tomato_mosaic_virus_treatment.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove infected plants, disinfect tools, and control aphids.'**
+  String get tomato_mosaic_virus_treatment;
 
   /// No description provided for @tomato_healthy.
   ///
   /// In en, this message translates to:
-  /// **'Healthy Tomato Leaf'**
+  /// **'Healthy Tomato'**
   String get tomato_healthy;
 
-  /// No description provided for @tomato_healthy_treatment.
+  /// No description provided for @squash_powdery_mildew.
   ///
   /// In en, this message translates to:
-  /// **'No treatment needed.'**
-  String get tomato_healthy_treatment;
+  /// **'Squash Powdery Mildew'**
+  String get squash_powdery_mildew;
+
+  /// No description provided for @squash_powdery_mildew_treatment.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply fungicides, use resistant varieties, and avoid dense planting.'**
+  String get squash_powdery_mildew_treatment;
+
+  /// No description provided for @orange_hlb.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange Citrus Greening (HLB)'**
+  String get orange_hlb;
+
+  /// No description provided for @orange_hlb_treatment.
+  ///
+  /// In en, this message translates to:
+  /// **'Control psyllid insects, remove infected trees, and use resistant rootstocks.'**
+  String get orange_hlb_treatment;
+
+  /// No description provided for @strawberry_leaf_scorch.
+  ///
+  /// In en, this message translates to:
+  /// **'Strawberry Leaf Scorch'**
+  String get strawberry_leaf_scorch;
+
+  /// No description provided for @strawberry_leaf_scorch_treatment.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove infected leaves, irrigate properly, and apply fungicides.'**
+  String get strawberry_leaf_scorch_treatment;
+
+  /// No description provided for @strawberry_healthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy Strawberry'**
+  String get strawberry_healthy;
+
+  /// No description provided for @soybean_healthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy Soybean'**
+  String get soybean_healthy;
+
+  /// No description provided for @raspberry_healthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy Raspberry'**
+  String get raspberry_healthy;
 
   /// No description provided for @diagnosis_failed.
   ///

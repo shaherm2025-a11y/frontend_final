@@ -145,7 +145,6 @@ class SplashScreen extends StatelessWidget {
 
 
 
-
 class DiagnosisPage extends StatefulWidget {
   const DiagnosisPage({Key? key}) : super(key: key);
 
@@ -161,29 +160,30 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
   double? _confidence;
 
   final picker = ImagePicker();
+  bool _loading = false;
 
-  // 📌 اختيار صورة (كاميرا في الموبايل / معرض في الويب)
+  // 📌 اختيار صورة
   Future<void> pickImage() async {
     if (kIsWeb) {
       final pickedFile = await picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() => _webImage = bytes);
-        await diagnosePlant(bytes, pickedFile.name); // API
+        await diagnosePlant(bytes, pickedFile.name);
       }
     } else {
       final pickedFile = await picker.pickImage(source: ImageSource.camera);
       if (pickedFile != null) {
         final file = File(pickedFile.path);
         setState(() => _imageFile = file);
-        await diagnosePlant(await file.readAsBytes(), pickedFile.name); // API
+        await diagnosePlant(await file.readAsBytes(), pickedFile.name);
       }
     }
   }
 
-  // 📌 استدعاء API
+  // 📌 API
   Future<void> diagnosePlant(Uint8List imageBytes, String filename) async {
-    final uri = Uri.parse('http://localhost:8000/predict'); // عدّل الرابط
+    final uri = Uri.parse('https://final-backend-sops.onrender.com/predict'); // عدّل الرابط
     final request = http.MultipartRequest('POST', uri);
 
     request.files.add(http.MultipartFile.fromBytes(
@@ -192,16 +192,20 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
       filename: filename,
     ));
 
+    setState(() => _loading = true);
+
     try {
       final response = await request.send();
       if (response.statusCode == 200) {
         final respStr = await response.stream.bytesToString();
         final data = json.decode(respStr);
-
+        final diseaseId = data['disease_id'] as String?;
+        final conf = (data['confidence'] as num?)?.toDouble();
+        final diseaseMap = LocalizationHelper.getDiseaseMap(context);
         setState(() {
-          _disease = data['disease'];
-          _treatment = data['treatment'];
-          _confidence = (data['confidence'] as num?)?.toDouble();
+          _confidence = conf;
+          _disease = diseaseId != null ? diseaseMap[diseaseId] : null;
+          _treatment = diseaseId != null ? diseaseMap["${diseaseId}_treatment"] : null;
         });
       } else {
         setState(() {
@@ -216,43 +220,107 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
         _treatment = null;
         _confidence = null;
       });
+    } finally {
+      setState(() => _loading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final isWide = MediaQuery.of(context).size.width > 600;
 
     return Scaffold(
-      appBar: AppBar(title: Text(loc.diagnosePlant)),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            ElevatedButton.icon(
-              onPressed: pickImage,
-              icon: const Icon(Icons.add_a_photo),
-              label: Text(loc.selectImage),
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: Text(loc.diagnosePlant),
+        centerTitle: true,
+        elevation: 2,
+        backgroundColor: Colors.green[700],
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // زر اختيار صورة
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green[600],
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(isWide ? 250 : double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: pickImage,
+                  icon: const Icon(Icons.add_a_photo, size: 22),
+                  label: Text(
+                    loc.selectImage,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // صورة مختارة
+                if (_imageFile != null || _webImage != null)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: _imageFile != null
+                        ? Image.file(_imageFile!, height: 220, fit: BoxFit.cover)
+                        : Image.memory(_webImage!, height: 220, fit: BoxFit.cover),
+                  ),
+                const SizedBox(height: 20),
+
+                // تحميل
+                if (_loading) const CircularProgressIndicator(color: Colors.green),
+
+                // النتائج
+                if (_disease != null && !_loading)
+                  Card(
+                    color: Colors.green[50],
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${loc.result}: $_disease",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: _disease!.toLowerCase().contains("error")
+                                      ? Colors.red
+                                      : Colors.green[800])),
+                          const SizedBox(height: 10),
+                          if (_confidence != null)
+                            Text(
+                              "${(_confidence!).toStringAsFixed(1)}% ${loc.confidence}",
+                              style: const TextStyle(color: Colors.black54),
+                            ),
+                          const SizedBox(height: 10),
+                          if (_treatment != null)
+                            Text("${loc.treatment}: $_treatment",
+                                style: const TextStyle(
+                                    fontSize: 16, color: Colors.black87)),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
             ),
-            const SizedBox(height: 16),
-            if (_imageFile != null) Image.file(_imageFile!, height: 200),
-            if (_webImage != null) Image.memory(_webImage!, height: 200),
-            const SizedBox(height: 16),
-            if (_disease != null) ...[
-              Text("${loc.result}: $_disease",
-                  style: const TextStyle(fontSize: 18)),
-              if (_confidence != null)
-                Text("${(_confidence! * 100).toStringAsFixed(1)}%"),
-              if (_treatment != null)
-                Text("${loc.treatment}: $_treatment"),
-            ],
-          ],
+          ),
         ),
       ),
     );
   }
 }
-
 class ExpertsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

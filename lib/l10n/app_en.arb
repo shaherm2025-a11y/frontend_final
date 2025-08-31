@@ -65,119 +65,99 @@
   "aphidsSymptoms": "Small insects sucking sap",
   "aphidsTreatment": "Neem spray + soap water",
   
+
+
   "apple_scab": "Apple Scab",
-  "apple_scab_treatment": "Use resistant varieties, apply fungicides like captan or mancozeb, and remove infected leaves.",
-
+  "apple_scab_treatment": "Use resistant varieties, apply fungicides, and prune infected leaves.",
   "apple_black_rot": "Apple Black Rot",
-  "apple_black_rot_treatment": "Prune infected branches, remove mummified fruits, and apply fungicides such as thiophanate-methyl.",
+  "apple_black_rot_treatment": "Remove mummified fruit, apply fungicides, and improve air circulation.",
+  "apple_cedar_apple_rust": "Apple Cedar Rust",
+  "apple_cedar_apple_rust_treatment": "Remove nearby cedar trees, use resistant cultivars, and apply fungicides.",
+  "apple_healthy": "Healthy Apple",
 
-  "apple_cedar_apple_rust": "Apple Cedar Apple Rust",
-  "apple_cedar_apple_rust_treatment": "Remove nearby cedar trees, apply preventive fungicides like myclobutanil during early growth.",
+ 
+  "blueberry_healthy": "Healthy Blueberry",
 
-  "apple_healthy": "Healthy Apple Leaf",
-  "apple_healthy_treatment": "No treatment needed.",
-
-  "blueberry_healthy": "Healthy Blueberry Leaf",
-  "blueberry_healthy_treatment": "No treatment needed.",
-
+ 
   "cherry_powdery_mildew": "Cherry Powdery Mildew",
-  "cherry_powdery_mildew_treatment": "Apply fungicides like sulfur or myclobutanil, prune infected shoots, and ensure good airflow.",
+  "cherry_powdery_mildew_treatment": "Apply sulfur-based fungicides, prune affected parts, and ensure proper spacing.",
+  "cherry_healthy": "Healthy Cherry",
 
-  "cherry_healthy": "Healthy Cherry Leaf",
-  "cherry_healthy_treatment": "No treatment needed.",
 
   "corn_gray_leaf_spot": "Corn Gray Leaf Spot",
-  "corn_gray_leaf_spot_treatment": "Rotate crops, use resistant hybrids, and apply fungicides (strobilurins or triazoles).",
-
+  "corn_gray_leaf_spot_treatment": "Use resistant hybrids, rotate crops, and apply fungicides.",
   "corn_common_rust": "Corn Common Rust",
-  "corn_common_rust_treatment": "Plant resistant varieties, and apply fungicides if disease pressure is high.",
-
+  "corn_common_rust_treatment": "Plant resistant varieties, monitor crops, and apply fungicides if severe.",
   "corn_northern_leaf_blight": "Corn Northern Leaf Blight",
-  "corn_northern_leaf_blight_treatment": "Use resistant hybrids, rotate crops, and apply fungicides like azoxystrobin.",
+  "corn_northern_leaf_blight_treatment": "Rotate crops, apply fungicides, and avoid continuous corn planting.",
+  "corn_healthy": "Healthy Corn",
 
-  "corn_healthy": "Healthy Corn Leaf",
-  "corn_healthy_treatment": "No treatment needed.",
-
+ 
   "grape_black_rot": "Grape Black Rot",
-  "grape_black_rot_treatment": "Remove mummified berries, apply fungicides like myclobutanil or captan, and ensure pruning.",
-
+  "grape_black_rot_treatment": "Remove infected parts, apply fungicides, and ensure good ventilation.",
   "grape_esca": "Grape Esca (Black Measles)",
-  "grape_esca_treatment": "Prune infected wood, remove weak vines, and apply fungicides as preventive measures.",
-
+  "grape_esca_treatment": "Prune infected vines, avoid wounding, and remove diseased plants.",
   "grape_leaf_blight": "Grape Leaf Blight",
-  "grape_leaf_blight_treatment": "Improve air circulation, remove infected leaves, and use fungicides such as mancozeb.",
+  "grape_leaf_blight_treatment": "Use fungicides and remove infected leaves.",
+  "grape_healthy": "Healthy Grape",
 
-  "grape_healthy": "Healthy Grape Leaf",
-  "grape_healthy_treatment": "No treatment needed.",
-
-  "orange_haunglongbing": "Citrus Greening (HLB)",
-  "orange_haunglongbing_treatment": "Remove infected trees, control psyllid vector insects, and use certified healthy seedlings.",
 
   "peach_bacterial_spot": "Peach Bacterial Spot",
-  "peach_bacterial_spot_treatment": "Apply copper-based sprays, avoid overhead irrigation, and plant resistant varieties.",
+  "peach_bacterial_spot_treatment": "Apply copper sprays and use resistant varieties.",
+  "peach_healthy": "Healthy Peach",
 
-  "peach_healthy": "Healthy Peach Leaf",
-  "peach_healthy_treatment": "No treatment needed.",
-
-  "pepper_bacterial_spot": "Pepper Bacterial Spot",
-  "pepper_bacterial_spot_treatment": "Apply copper fungicides, rotate crops, and use resistant cultivars.",
-
-  "pepper_healthy": "Healthy Pepper Leaf",
-  "pepper_healthy_treatment": "No treatment needed.",
 
   "potato_early_blight": "Potato Early Blight",
-  "potato_early_blight_treatment": "Use resistant varieties, rotate crops, and apply fungicides like chlorothalonil or mancozeb.",
-
+  "potato_early_blight_treatment": "Use resistant varieties, rotate crops, and apply fungicides.",
   "potato_late_blight": "Potato Late Blight",
-  "potato_late_blight_treatment": "Apply fungicides such as metalaxyl or cymoxanil, and destroy infected plants.",
+  "potato_late_blight_treatment": "Destroy infected plants, avoid overhead watering, and apply fungicides.",
+  "potato_healthy": "Healthy Potato",
 
-  "potato_healthy": "Healthy Potato Leaf",
-  "potato_healthy_treatment": "No treatment needed.",
+  
+  "pepper_bacterial_spot": "Pepper Bacterial Spot",
+  "pepper_bacterial_spot_treatment": "Use certified seeds, apply copper fungicides, and avoid overhead watering.",
+  "pepper_healthy": "Healthy Pepper",
 
-  "raspberry_healthy": "Healthy Raspberry Leaf",
-  "raspberry_healthy_treatment": "No treatment needed.",
-
-  "soybean_healthy": "Healthy Soybean Leaf",
-  "soybean_healthy_treatment": "No treatment needed.",
-
-  "squash_powdery_mildew": "Squash Powdery Mildew",
-  "squash_powdery_mildew_treatment": "Apply sulfur sprays, neem oil, or systemic fungicides. Ensure good airflow.",
-
-  "strawberry_leaf_scorch": "Strawberry Leaf Scorch",
-  "strawberry_leaf_scorch_treatment": "Remove infected plants, improve field drainage, and apply fungicides.",
-
-  "strawberry_healthy": "Healthy Strawberry Leaf",
-  "strawberry_healthy_treatment": "No treatment needed.",
-
+  
   "tomato_bacterial_spot": "Tomato Bacterial Spot",
-  "tomato_bacterial_spot_treatment": "Use resistant varieties, apply copper fungicides, and avoid overhead irrigation.",
-
+  "tomato_bacterial_spot_treatment": "Use resistant varieties, rotate crops, and apply copper fungicides.",
   "tomato_early_blight": "Tomato Early Blight",
-  "tomato_early_blight_treatment": "Rotate crops, stake plants, and apply fungicides like chlorothalonil.",
-
+  "tomato_early_blight_treatment": "Remove infected leaves, rotate crops, and apply fungicides.",
   "tomato_late_blight": "Tomato Late Blight",
-  "tomato_late_blight_treatment": "Destroy infected plants, rotate crops, and apply fungicides such as mancozeb or cymoxanil.",
-
+  "tomato_late_blight_treatment": "Destroy infected plants and apply fungicides.",
   "tomato_leaf_mold": "Tomato Leaf Mold",
-  "tomato_leaf_mold_treatment": "Ensure ventilation in greenhouses, remove infected leaves, and apply fungicides.",
-
+  "tomato_leaf_mold_treatment": "Provide ventilation, avoid overhead watering, and use fungicides.",
   "tomato_septoria_leaf_spot": "Tomato Septoria Leaf Spot",
-  "tomato_septoria_leaf_spot_treatment": "Remove infected leaves, stake plants, and apply fungicides like mancozeb.",
-
+  "tomato_septoria_leaf_spot_treatment": "Rotate crops, remove infected leaves, and apply fungicides.",
   "tomato_spider_mites": "Tomato Spider Mites",
-  "tomato_spider_mites_treatment": "Spray with miticides, use neem oil, and maintain good irrigation.",
-
+  "tomato_spider_mites_treatment": "Spray miticides, encourage natural predators, and irrigate properly.",
   "tomato_target_spot": "Tomato Target Spot",
-  "tomato_target_spot_treatment": "Rotate crops, remove infected debris, and use fungicides such as mancozeb.",
-
-  "tomato_mosaic_virus": "Tomato Mosaic Virus",
-  "tomato_mosaic_virus_treatment": "Remove infected plants, disinfect tools, and use resistant cultivars.",
-
+  "tomato_target_spot_treatment": "Use fungicides and remove infected plant debris.",
   "tomato_yellow_leaf_curl": "Tomato Yellow Leaf Curl Virus",
-  "tomato_yellow_leaf_curl_treatment": "Control whiteflies, remove infected plants, and plant resistant varieties.",
+  "tomato_yellow_leaf_curl_treatment": "Control whiteflies, use resistant varieties, and apply neem oil.",
+  "tomato_mosaic_virus": "Tomato Mosaic Virus",
+  "tomato_mosaic_virus_treatment": "Remove infected plants, disinfect tools, and control aphids.",
+  "tomato_healthy": "Healthy Tomato",
 
-  "tomato_healthy": "Healthy Tomato Leaf",
-  "tomato_healthy_treatment": "No treatment needed.",
+  
+  "squash_powdery_mildew": "Squash Powdery Mildew",
+  "squash_powdery_mildew_treatment": "Apply fungicides, use resistant varieties, and avoid dense planting.",
+
+ 
+  "orange_hlb": "Orange Citrus Greening (HLB)",
+  "orange_hlb_treatment": "Control psyllid insects, remove infected trees, and use resistant rootstocks.",
+
+  
+  "strawberry_leaf_scorch": "Strawberry Leaf Scorch",
+  "strawberry_leaf_scorch_treatment": "Remove infected leaves, irrigate properly, and apply fungicides.",
+  "strawberry_healthy": "Healthy Strawberry",
+
+ 
+  "soybean_healthy": "Healthy Soybean",
+
+  
+  "raspberry_healthy": "Healthy Raspberry",
+  
   "diagnosis_failed": "Diagnosis failed."
 
 }

@@ -81,6 +81,21 @@ class LocalizationHelper {
       // 🎃 Squash
       "Squash___Powdery_mildew": loc.squash_powdery_mildew,
       "Squash___Powdery_mildew_treatment": loc.squash_powdery_mildew_treatment,
+
+      // 🍊 Orange
+      "Orange___Haunglongbing_(Citrus_greening)": loc.orange_hlb,
+      "Orange___Haunglongbing_(Citrus_greening)_treatment": loc.orange_hlb_treatment,
+
+      // 🍓 Strawberry
+      "Strawberry___Leaf_scorch": loc.strawberry_leaf_scorch,
+      "Strawberry___Leaf_scorch_treatment": loc.strawberry_leaf_scorch_treatment,
+      "Strawberry___healthy": loc.strawberry_healthy,
+
+      // 🌱 Soybean
+      "Soybean___healthy": loc.soybean_healthy,
+
+      // 🍇 Raspberry
+      "Raspberry___healthy": loc.raspberry_healthy,
     };
   }
 }
