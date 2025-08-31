@@ -172,7 +172,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
         await diagnosePlant(bytes, pickedFile.name);
       }
     } else {
-      final pickedFile = await picker.pickImage(source: ImageSource.camera);
+      final pickedFile = await picker.pickImage(source: ImageSource.camera,imageQuality: 70);
       if (pickedFile != null) {
         final file = File(pickedFile.path);
         setState(() => _imageFile = file);
