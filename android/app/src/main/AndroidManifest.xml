@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.plant_diagnosis_fixed">
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- السماح للإنترنت -->
     <uses-permission android:name="android.permission.INTERNET"/>
