@@ -216,10 +216,11 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
           _confidence = null;
         });
       }
-    } catch (e) {
-	  print("❌ Error: $e");
+    } catch (e, stacktrace) {
+      print("❌ Error: $e");
+      print("📌 Stacktrace: $stacktrace");
       setState(() {
-        _disease = "Failed to connect to API";
+        _disease = "Error: $e";
         _treatment = null;
         _confidence = null;
       });
