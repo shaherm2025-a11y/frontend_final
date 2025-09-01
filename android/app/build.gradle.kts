@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.plant_diagnosis"
+    namespace = "com.example.plant_diagnosis_fixed"
     compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     defaultConfig {
-        applicationId = "com.example.plant_diagnosis"
+        applicationId = "com.example.plant_diagnosis_fixed"
         minSdk = 21
         targetSdk = 35
         versionCode = 1
@@ -28,7 +28,8 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        release {
+            // مؤقتًا نوقع بالـ debug key عشان يشتغل
             signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             isShrinkResources = false
@@ -38,9 +39,4 @@ android {
 
 flutter {
     source = "../.."
-}
-
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.22")
-    implementation("androidx.multidex:multidex:2.0.1")
 }
