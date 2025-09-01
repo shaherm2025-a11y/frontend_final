@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "com.example.plant_diagnosis_fixed"
+    namespace = "com.example.plant_diagnosis"
     compileSdk = 35
     ndkVersion = "27.0.12077973"
 
     defaultConfig {
-        applicationId = "com.example.plant_diagnosis_fixed"
+        applicationId = "com.example.plant_diagnosis"
         minSdk = 21
         targetSdk = 35
         versionCode = 1
