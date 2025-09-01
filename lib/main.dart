@@ -198,6 +198,8 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
       final response = await request.send();
       if (response.statusCode == 200) {
         final respStr = await response.stream.bytesToString();
+		print("📌 Status: ${response.statusCode}");
+        print("📌 Response: $respStr");
         final data = json.decode(respStr);
         final diseaseId = data['disease_id'] as String?;
         final conf = (data['confidence'] as num?)?.toDouble();
@@ -215,6 +217,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
         });
       }
     } catch (e) {
+	  print("❌ Error: $e");
       setState(() {
         _disease = "Failed to connect to API";
         _treatment = null;
