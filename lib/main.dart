@@ -172,7 +172,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
         await diagnosePlant(bytes, pickedFile.name);
       }
     } else {
-      final pickedFile = await picker.pickImage(source: ImageSource.camera,imageQuality: 70);
+      final pickedFile = await picker.pickImage(source: ImageSource.camera);
       if (pickedFile != null) {
         final file = File(pickedFile.path);
         setState(() => _imageFile = file);
@@ -183,7 +183,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
 
   // 📌 API
   Future<void> diagnosePlant(Uint8List imageBytes, String filename) async {
-    final uri = Uri.parse('https://final-backend-sops.onrender.com/predict'); // عدّل الرابط
+    final uri = Uri.parse('https://mohashaher-backend-fastapi.hf.space/predict'); // عدّل الرابط
     final request = http.MultipartRequest('POST', uri);
 
     request.files.add(http.MultipartFile.fromBytes(
