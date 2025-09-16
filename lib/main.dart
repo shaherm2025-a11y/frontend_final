@@ -4,12 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:file_picker/file_picker.dart';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:plant_diagnosis_app/utils/localization_helper.dart';
-
-
+import '../db/database_helper.dart';
 
 import 'l10n/app_localizations.dart';
 
@@ -88,12 +86,13 @@ class SplashScreen extends StatelessWidget {
                 child: Text(t.contactExperts),
               ),
               SizedBox(height: 12),
+              // ✅ زر الآفات والأمراض بدلاً من منتجاتنا
               ElevatedButton(
                 style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => ProductsPage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => PestsDiseasesPage()));
                 },
-                child: Text(t.ourProducts),
+                child: Text("الآفات والأمراض"),
               ),
               SizedBox(height: 12),
               ElevatedButton(
@@ -143,8 +142,6 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
-
-
 class DiagnosisPage extends StatefulWidget {
   const DiagnosisPage({Key? key}) : super(key: key);
 
@@ -162,7 +159,6 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
   final picker = ImagePicker();
   bool _loading = false;
 
-  // 📌 اختيار صورة
   Future<void> pickImage() async {
     if (kIsWeb) {
       final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -181,9 +177,8 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
     }
   }
 
-  // 📌 API
   Future<void> diagnosePlant(Uint8List imageBytes, String filename) async {
-    final uri = Uri.parse('https://mohashaher-backend-fastapi.hf.space/predict'); // عدّل الرابط
+    final uri = Uri.parse('https://mohashaher-backend-fastapi.hf.space/predict');
     final request = http.MultipartRequest('POST', uri);
 
     request.files.add(http.MultipartFile.fromBytes(
@@ -198,8 +193,6 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
       final response = await request.send();
       if (response.statusCode == 200) {
         final respStr = await response.stream.bytesToString();
-		print("📌 Status: ${response.statusCode}");
-        print("📌 Response: $respStr");
         final data = json.decode(respStr);
         final diseaseId = data['disease_id'] as String?;
         final conf = (data['confidence'] as num?)?.toDouble();
@@ -216,9 +209,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
           _confidence = null;
         });
       }
-    } catch (e, stacktrace) {
-      print("❌ Error: $e");
-      print("📌 Stacktrace: $stacktrace");
+    } catch (e) {
       setState(() {
         _disease = "Error: $e";
         _treatment = null;
@@ -250,7 +241,6 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // زر اختيار صورة
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green[600],
@@ -268,8 +258,6 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-
-                // صورة مختارة
                 if (_imageFile != null || _webImage != null)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16),
@@ -278,11 +266,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
                         : Image.memory(_webImage!, height: 220, fit: BoxFit.cover),
                   ),
                 const SizedBox(height: 20),
-
-                // تحميل
                 if (_loading) const CircularProgressIndicator(color: Colors.green),
-
-                // النتائج
                 if (_disease != null && !_loading)
                   Card(
                     color: Colors.green[50],
@@ -325,6 +309,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
     );
   }
 }
+
 class ExpertsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -339,117 +324,188 @@ class ExpertsPage extends StatelessWidget {
 }
 
 
-class ProductsPage extends StatelessWidget {
-  final List<String> productImages = [
-  'assets/images/ifsoil_renovation_03.jpg',
-  'assets/images/table_zinc.jpg',
-  'assets/images/table_cap.jpg',
-  'assets/images/good_bank_01.jpg',
-  'assets/images/gisafol.jpg',
-  'assets/images/diamond.jpg',
-  'assets/images/sulfurea_blaris_liquid_01.jpg',
-  'assets/images/carpatar_01_01_01.jpg',
-  'assets/images/chlorboost_03.jpg',
-  'assets/images/quajimax_02_02.jpg',
-  'assets/images/key_spark.jpg',
-  'assets/images/key_star_03.jpg',
-  'assets/images/microsol_40s.jpg',
-  'assets/images/nutri_n_spark.jpg',
-  'assets/images/nutri_zinc_spark_05.jpg',
-  'assets/images/nutri_zinc.jpg',
-  'assets/images/sulfurea_blaris_liquid_01.jpg',
-  'assets/images/nutri_spray_leaf_stop.jpg',
-  'assets/images/high_k.jpg',
-  'assets/images/timazol.jpeg',
-  'assets/images/timazol1.jpeg',
-  'assets/images/timazol2.jpeg',
-  'assets/images/timazol3.jpeg',
-  'assets/images/timazol4.jpeg',
-  'assets/images/timazol4.jpeg',
-];
+
+class PestsDiseasesPage extends StatefulWidget {
+  @override
+  _PestsDiseasesPageState createState() => _PestsDiseasesPageState();
+}
+
+class _PestsDiseasesPageState extends State<PestsDiseasesPage> {
+  List<Map<String, dynamic>> _crops = [];
+  List<Map<String, dynamic>> _diseases = [];
+  int? _selectedCropId;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCrops();
+  }
+
+  Future<void> _loadCrops() async {
+    final db = await DatabaseHelper.database;
+    final crops = await db.query('crops');
+	print("✅ Loaded crops: $crops");
+    setState(() {
+      _crops = crops;
+    });
+  }
+
+  Future<void> _loadDiseases(int cropId) async {
+    final db = await DatabaseHelper.database;
+    final diseases =
+        await db.query('diseases', where: 'crop_id = ?', whereArgs: [cropId]);
+    setState(() {
+      _selectedCropId = cropId;
+      _diseases = diseases;
+    });
+  }
+
+  void _openDiseaseDetails(Map<String, dynamic> disease) async {
+    final db = await DatabaseHelper.database;
+    final details = await db.query('disease_details',
+        where: 'disease_id = ?', whereArgs: [disease['id']]);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => DiseaseDetailsPage(
+          disease: disease,
+          details: details,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-
     return Scaffold(
-      appBar: AppBar(title: Text(t.ourProducts)),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: GridView.builder(
-          itemCount: productImages.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // 3 صور بالصف
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1, // مربع الشكل
-          ),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                // عرض الصورة بملء الشاشة مع إمكانية التكبير
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => FullscreenImagePage(imagePath: productImages[index]),
-                  ),
-                );
+      appBar: AppBar(title: const Text("الآفات والأمراض")),
+      body: Column(
+        children: [
+          // 🔽 Dropdown لاختيار المحصول
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButton<int>(
+              hint: const Text("اختر المحصول"),
+              isExpanded: true,
+              value: _selectedCropId,
+              items: _crops
+                  .map((crop) => DropdownMenuItem<int>(
+                        value: crop['id'] as int,
+                        child: Row(
+                          children: [
+                            if (crop['image'] != null)
+                              Image.asset(
+                                crop['image'],
+                                width: 32,
+                                height: 32,
+                                fit: BoxFit.cover,
+                              ),
+                            const SizedBox(width: 10),
+                            Text(crop['name']),
+                          ],
+                        ),
+                      ))
+                  .toList(),
+              onChanged: (val) {
+                if (val != null) {
+                  _loadDiseases(val);
+                }
               },
-              child: Container(
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    productImages[index],
-                    fit: BoxFit.fill, // تمديد الصورة لملء الإطار بالكامل
+            ),
+          ),
+
+          // 🦠 قائمة الأمراض
+          Expanded(
+            child: _diseases.isEmpty
+                ? const Center(child: Text("اختر محصولاً لعرض الأمراض"))
+                : ListView.builder(
+                    itemCount: _diseases.length,
+                    itemBuilder: (context, index) {
+                      final disease = _diseases[index];
+                      return GestureDetector(
+                        onTap: () => _openDiseaseDetails(disease),
+                        child: Card(
+                          margin: const EdgeInsets.all(8),
+                          child: ListTile(
+                            leading: disease['image'] != null
+                                ? Image.asset(
+                                    disease['image'],
+                                    width: 48,
+                                    height: 48,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Icon(Icons.bug_report,
+                                    color: Colors.redAccent),
+                            title: Text(disease['name']),
+                            subtitle: Text(disease['stage'] ?? ""),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ),
-              ),
-            );
-          },
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class FullscreenImagePage extends StatelessWidget {
-  final String imagePath;
+class DiseaseDetailsPage extends StatelessWidget {
+  final Map<String, dynamic> disease;
+  final List<Map<String, dynamic>> details;
 
-  const FullscreenImagePage({required this.imagePath});
+  const DiseaseDetailsPage(
+      {Key? key, required this.disease, required this.details})
+      : super(key: key);
+
+  Widget _buildDetailSection(String title, String? content) {
+    if (content == null || content.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          const SizedBox(height: 4),
+          Text(content, style: const TextStyle(fontSize: 14)),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final detail = details.isNotEmpty ? details.first : {};
+
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: GestureDetector(
-        onTap: () => Navigator.pop(context), // اغلاق عند الضغط على الصورة
-        child: Center(
-          child: InteractiveViewer(
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.contain,
+      appBar: AppBar(title: Text(disease['name'] ?? "تفاصيل المرض")),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (disease['image'] != null)
+              Center(
+                child: Image.asset(
+                  disease['image'],
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          ),
+            const SizedBox(height: 16),
+            _buildDetailSection("الأعراض", detail['symptoms']),
+            _buildDetailSection("الأسباب", detail['causes']),
+            _buildDetailSection("الإجراءات الوقائية", detail['prevention']),
+            _buildDetailSection("العلاج", detail['treatment']),
+          ],
         ),
+      ),
     );
   }
 }
-
-
 
 class AwarenessPage extends StatelessWidget {
   @override
@@ -631,5 +687,3 @@ class AwarenessPage extends StatelessWidget {
     );
   }
 }
-
-

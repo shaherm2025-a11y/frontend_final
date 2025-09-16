@@ -1,5 +1,5 @@
 name: plant_diagnosis_app
-description: A Flutter app to diagnose plant diseases and show treatments.
+description: تطبيق تشخيص النباتات
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -14,6 +14,13 @@ dependencies:
   http: ^1.1.0
   image_picker: ^1.0.7
   file_picker: ^10.2.0
+  sqflite: ^2.3.0
+  sqflite_common_ffi_web: ^0.4.2
+  path: ^1.8.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
 
 flutter:
   generate: true
@@ -27,28 +34,53 @@ flutter:
     - assets/images/seasons.jpg
     - assets/images/books.jpg
     - assets/images/support.jpg
-    - assets/images/ifsoil_renovation_03.jpg
-    - assets/images/table_zinc.jpg
-    - assets/images/table_cap.jpg
-    - assets/images/good_bank_01.jpg
-    - assets/images/gisafol.jpg
-    - assets/images/diamond.jpg
-    - assets/images/sulfurea_blaris_liquid_01.jpg
-    - assets/images/carpatar_01_01_01.jpg
-    - assets/images/chlorboost_03.jpg
-    - assets/images/quajimax_02_02.jpg
-    - assets/images/key_spark.jpg
-    - assets/images/key_star_03.jpg
-    - assets/images/microsol_40s.jpg
-    - assets/images/nutri_n_spark.jpg
-    - assets/images/nutri_zinc_spark_05.jpg
-    - assets/images/nutri_zinc.jpg
-    - assets/images/sulfurea_blaris_liquid_01.jpg
-    - assets/images/nutri_spray_leaf_stop.jpg
-    - assets/images/high_k.jpg
-    - assets/images/timazol.jpeg
-    - assets/images/timazol1.jpeg
-    - assets/images/timazol2.jpeg
-    - assets/images/timazol3.jpeg
-    - assets/images/timazol4.jpeg
-    - assets/images/timazol4.jpeg
+    - assets/images/tomato_icon.png
+    - assets/images/potato_icon.png
+    - assets/images/wheat_icon.png
+    - assets/images/corn_icon.png
+    - assets/images/pepper_icon.png
+    - assets/images/cucumber_icon.png
+    - assets/images/rice_icon.png
+    - assets/images/strawberry_icon.png
+    - assets/images/grape_icon.png
+    - assets/images/apple_icon.png
+    - assets/images/apple_fire_blight.png
+    - assets/images/grape_downy.png
+    - assets/images/strawberry_grey_mold.png
+    - assets/images/rice_blast.png
+
+    # 🦠 أمراض الطماطم
+    - assets/images/tomato_wilt.png
+    - assets/images/tomato_soft_rot.png
+    - assets/images/tomato_powder.png
+    - assets/images/aphids.png
+    - assets/images/whitefly.png
+    - assets/images/tomato_early_blight.png
+    - assets/images/blossom_rot.png
+    - assets/images/gray_mold.png
+    - assets/images/maize_rust.png
+
+    # 🥔 أمراض البطاطس
+    - assets/images/potato_blight.png
+    - assets/images/potato_dry_rot.png
+    - assets/images/beetle.png
+
+    # 🌾 أمراض القمح
+    - assets/images/yellow_rust.png
+    - assets/images/wheat_powder.png
+    - assets/images/smut.png
+
+    # 🌽 أمراض الذرة
+    - assets/images/armyworm.png
+    - assets/images/fusarium.png
+
+    # 🌶️ أمراض الفلفل
+    - assets/images/pepper_wilt.png
+    - assets/images/red_spider.png
+    - assets/images/pepper_leaf_spot.png
+
+    # 🥒 أمراض الخيار
+    - assets/images/cucumber_downy.png
+    - assets/images/bacterial_wilt.png
+    - assets/db/plantix_diseases.db
+
