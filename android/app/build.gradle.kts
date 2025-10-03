@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.plant_diagnosis_fixed"
-        minSdk = 21
-        targetSdk = 35
+        minSdk = flutter.minSdkVersion
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true

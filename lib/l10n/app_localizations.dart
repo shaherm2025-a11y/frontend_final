@@ -845,8 +845,74 @@ abstract class AppLocalizations {
   /// No description provided for @diagnosis_failed.
   ///
   /// In en, this message translates to:
-  /// **'Diagnosis failed.'**
+  /// **'Diagnosis failed'**
   String get diagnosis_failed;
+
+  /// No description provided for @pestsDiseases.
+  ///
+  /// In en, this message translates to:
+  /// **'Pests & Diseases'**
+  String get pestsDiseases;
+
+  /// No description provided for @pestsDiseases1.
+  ///
+  /// In en, this message translates to:
+  /// **'Pests and Diseases'**
+  String get pestsDiseases1;
+
+  /// No description provided for @selectCrop.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Crop'**
+  String get selectCrop;
+
+  /// No description provided for @noCropSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a crop'**
+  String get noCropSelected;
+
+  /// No description provided for @stage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage'**
+  String get stage;
+
+  /// No description provided for @noDiseases.
+  ///
+  /// In en, this message translates to:
+  /// **'No diseases found'**
+  String get noDiseases;
+
+  /// No description provided for @diseaseDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Disease Details'**
+  String get diseaseDetails;
+
+  /// No description provided for @cause.
+  ///
+  /// In en, this message translates to:
+  /// **'Cause'**
+  String get cause;
+
+  /// No description provided for @preventiveMeasures.
+  ///
+  /// In en, this message translates to:
+  /// **'Preventive Measures'**
+  String get preventiveMeasures;
+
+  /// No description provided for @chemicalTreatment.
+  ///
+  /// In en, this message translates to:
+  /// **'Chemical Treatment'**
+  String get chemicalTreatment;
+
+  /// No description provided for @alternativeTreatment.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternative Treatment'**
+  String get alternativeTreatment;
 }
 
 class _AppLocalizationsDelegate

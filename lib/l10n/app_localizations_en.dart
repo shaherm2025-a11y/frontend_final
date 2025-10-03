@@ -412,5 +412,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get raspberry_healthy => 'Healthy Raspberry';
 
   @override
-  String get diagnosis_failed => 'Diagnosis failed.';
+  String get diagnosis_failed => 'Diagnosis failed';
+
+  @override
+  String get pestsDiseases => 'Pests & Diseases';
+
+  @override
+  String get pestsDiseases1 => 'Pests and Diseases';
+
+  @override
+  String get selectCrop => 'Select Crop';
+
+  @override
+  String get noCropSelected => 'Please select a crop';
+
+  @override
+  String get stage => 'Stage';
+
+  @override
+  String get noDiseases => 'No diseases found';
+
+  @override
+  String get diseaseDetails => 'Disease Details';
+
+  @override
+  String get cause => 'Cause';
+
+  @override
+  String get preventiveMeasures => 'Preventive Measures';
+
+  @override
+  String get chemicalTreatment => 'Chemical Treatment';
+
+  @override
+  String get alternativeTreatment => 'Alternative Treatment';
 }

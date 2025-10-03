@@ -158,7 +158,21 @@
   
   "raspberry_healthy": "Healthy Raspberry",
   
-  "diagnosis_failed": "Diagnosis failed."
+  "diagnosis_failed": "Diagnosis failed",
+  "pestsDiseases": "Pests & Diseases",
+  "pestsDiseases1": "Pests and Diseases",
+  
+  "selectCrop": "Select Crop",
+  "noCropSelected": "Please select a crop",
+  "stage": "Stage",
+  "noDiseases": "No diseases found",
+
+  "diseaseDetails": "Disease Details",
+  "symptoms": "Symptoms",
+  "cause": "Cause",
+  "preventiveMeasures": "Preventive Measures",
+  "chemicalTreatment": "Chemical Treatment",
+  "alternativeTreatment": "Alternative Treatment"
 
 }
 

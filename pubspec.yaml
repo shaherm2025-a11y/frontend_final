@@ -16,16 +16,24 @@ dependencies:
   file_picker: ^10.2.0
   sqflite: ^2.3.0
   sqflite_common_ffi_web: ^0.4.2
+  sqflite_common_ffi: ^2.0.0
   path: ^1.8.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+ # flutter_lints: ^2.0.0
+  path_provider: ^2.0.15
+ # dio: ^6.1.2
+  flutter_cache_manager: ^3.3.0
+  cached_network_image: ^3.2.3
+
 
 flutter:
   generate: true
   uses-material-design: true
   assets:
+    - assets/diseases_all.json
+    - assets/placeholder.png
     - assets/logo.png
     - assets/images/soil.jpg
     - assets/images/protection.jpg
@@ -82,5 +90,11 @@ flutter:
     # 🥒 أمراض الخيار
     - assets/images/cucumber_downy.png
     - assets/images/bacterial_wilt.png
-    - assets/db/plantix_diseases.db
+    - assets/plantix_final.db
+    - assets/plant_relational.json
+    - assets/crops_ar.json
+    - assets/disease_images/
+    - assets/plantix_icons/
+
+
 

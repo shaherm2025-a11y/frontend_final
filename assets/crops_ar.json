@@ -1,0 +1,242 @@
+[
+  {
+    "name_en": "Guava",
+    "name_ar": "جوافة"
+  },
+  {
+    "name_en": "Tomato",
+    "name_ar": "طماطم"
+  },
+  {
+    "name_en": "Cauliflower",
+    "name_ar": "قرنبيط"
+  },
+  {
+    "name_en": "Lentil",
+    "name_ar": "عدس"
+  },
+  {
+    "name_en": "Apricot",
+    "name_ar": "مشمش"
+  },
+  {
+    "name_en": "Okra",
+    "name_ar": "بامية"
+  },
+  {
+    "name_en": "Chickpea & Gram",
+    "name_ar": "حمص"
+  },
+  {
+    "name_en": "Bean",
+    "name_ar": "فاصوليا"
+  },
+  {
+    "name_en": "Potato",
+    "name_ar": "بطاطس"
+  },
+  {
+    "name_en": "Brinjal",
+    "name_ar": "باذنجان"
+  },
+  {
+    "name_en": "Turmeric",
+    "name_ar": "كركم"
+  },
+  {
+    "name_en": "Tobacco",
+    "name_ar": "تبغ"
+  },
+  {
+    "name_en": "Peach",
+    "name_ar": "خوخ"
+  },
+  {
+    "name_en": "Millet",
+    "name_ar": "دخن"
+  },
+  {
+    "name_en": "Cucumber",
+    "name_ar": "خيار"
+  },
+  {
+    "name_en": "Ornamental",
+    "name_ar": "نباتات زينة"
+  },
+  {
+    "name_en": "Ginger",
+    "name_ar": "زنجبيل"
+  },
+  {
+    "name_en": "Black & Green Gram",
+    "name_ar": "عدس أسود وأخضر"
+  },
+  {
+    "name_en": "Rice",
+    "name_ar": "أرز"
+  },
+  {
+    "name_en": "Wheat",
+    "name_ar": "قمح"
+  },
+  {
+    "name_en": "Grape",
+    "name_ar": "عنب"
+  },
+  {
+    "name_en": "Cherry",
+    "name_ar": "كرز"
+  },
+  {
+    "name_en": "Other",
+    "name_ar": "أخرى"
+  },
+  {
+    "name_en": "Cabbage",
+    "name_ar": "كرنب"
+  },
+  {
+    "name_en": "Peanut",
+    "name_ar": "فول سوداني"
+  },
+  {
+    "name_en": "Garlic",
+    "name_ar": "ثوم"
+  },
+  {
+    "name_en": "Pumpkin",
+    "name_ar": "يقطين"
+  },
+  {
+    "name_en": "Almond",
+    "name_ar": "لوز"
+  },
+  {
+    "name_en": "Soybean",
+    "name_ar": "فول الصويا"
+  },
+  {
+    "name_en": "Coffee",
+    "name_ar": "قهوة"
+  },
+  {
+    "name_en": "Olive",
+    "name_ar": "زيتون"
+  },
+  {
+    "name_en": "Capsicum & Chilli",
+    "name_ar": "فلفل"
+  },
+  {
+    "name_en": "Maize",
+    "name_ar": "ذرة"
+  },
+  {
+    "name_en": "Carrot",
+    "name_ar": "جزر"
+  },
+  {
+    "name_en": "Bitter Gourd",
+    "name_ar": "قرع مر"
+  },
+  {
+    "name_en": "Sugarcane",
+    "name_ar": "قصب السكر"
+  },
+  {
+    "name_en": "Pomegranate",
+    "name_ar": "رمان"
+  },
+  {
+    "name_en": "Lettuce",
+    "name_ar": "خس"
+  },
+  {
+    "name_en": "Mango",
+    "name_ar": "مانجو"
+  },
+  {
+    "name_en": "Apple",
+    "name_ar": "تفاح"
+  },
+  {
+    "name_en": "Strawberry",
+    "name_ar": "فراولة"
+  },
+  {
+    "name_en": "Sugar Beet",
+    "name_ar": "بنجر السكر"
+  },
+  {
+    "name_en": "Pigeon Pea & Red Gram",
+    "name_ar": "بازلاء الحمام"
+  },
+  {
+    "name_en": "Melon",
+    "name_ar": "شمام"
+  },
+  {
+    "name_en": "Banana",
+    "name_ar": "موز"
+  },
+  {
+    "name_en": "Citrus",
+    "name_ar": "حمضيات"
+  },
+  {
+    "name_en": "Cotton",
+    "name_ar": "قطن"
+  },
+  {
+    "name_en": "Canola",
+    "name_ar": "كانولا"
+  },
+  {
+    "name_en": "Barley",
+    "name_ar": "شعير"
+  },
+  {
+    "name_en": "Cassava",
+    "name_ar": "قصب يام"
+  },
+  {
+    "name_en": "Zucchini",
+    "name_ar": "كوسة"
+  },
+  {
+    "name_en": "Sweet Potato",
+    "name_ar": "بطاطا حلوة"
+  },
+  {
+    "name_en": "Papaya",
+    "name_ar": "بابايا"
+  },
+  {
+    "name_en": "Currant",
+    "name_ar": "كرز أحمر"
+  },
+  {
+    "name_en": "Rose",
+    "name_ar": "ورد"
+  },
+  {
+    "name_en": "Onion",
+    "name_ar": "بصل"
+  },
+  {
+    "name_en": "Sorghum",
+    "name_ar": "سورغم"
+  },
+  {
+    "name_en": "Pistachio",
+    "name_ar": "فستق"
+  },
+  {
+    "name_en": "Pea",
+    "name_ar": "بازلاء"
+  },
+  {
+    "name_en": "Pear",
+    "name_ar": "كمثرى"
+  }
+]

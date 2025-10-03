@@ -1,17 +1,171 @@
 import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:plant_diagnosis_app/utils/localization_helper.dart';
-import '../db/database_helper.dart';
-
+import 'package:path/path.dart' as p;   // ✅ استيراد path مع alias
+import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:flutter/services.dart';
 import 'l10n/app_localizations.dart';
+import 'utils/localization_helper.dart';
+import 'package:file_picker/file_picker.dart';
+// ================= Database Helper =================
+// ================= Database Helper =================
+class DatabaseHelper {
+  static Database? _db;
 
-void main() => runApp(MyApp());
+  // ✅ اللغة الحالية
+  static String appLanguageCode = 'en'; // الافتراضي
+  static bool get isArabic => appLanguageCode == 'ar';
+
+  // ✅ الأعمدة حسب اللغة
+  static String get nameCol => isArabic ? 'name' : 'name_en';
+  static String get symptomsCol => isArabic ? 'symptoms' : 'symptoms_en';
+  static String get causeCol => isArabic ? 'cause' : 'cause_en';
+  static String get preventiveCol =>
+      isArabic ? 'preventive_measures' : 'preventive_measures_en';
+  static String get chemicalCol =>
+      isArabic ? 'chemical_treatment' : 'chemical_treatment_en';
+  static String get alternativeCol =>
+      isArabic ? 'alternative_treatment' : 'alternative_treatment_en';
+
+  // ✅ قاعدة البيانات (للهاتف والويندوز)
+  static Future<Database> getDatabase() async {
+    if (_db != null) return _db!;
+    if (kIsWeb) throw Exception("Web uses JSON, not SQLite");
+
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = p.join(documentsDirectory.path, "plantix_final.db");
+
+    // 📌 إذا ما كان الملف موجود انسخه من assets
+    bool exists = await File(path).exists();
+    if (!exists) {
+      print("📌 نسخ قاعدة البيانات من assets لأول مرة...");
+      ByteData data = await rootBundle.load("assets/plantix_final.db");
+      List<int> bytes =
+          data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+
+      await File(path).writeAsBytes(bytes, flush: true);
+    }
+
+    _db = await openDatabase(path, readOnly: true);
+    return _db!;
+  }
+
+  // ✅ قراءة المحاصيل
+  static Future<List<Map<String, dynamic>>> getCrops() async {
+    if (kIsWeb) throw Exception("Use JSON on Web");
+    final db = await getDatabase();
+    return await db.query(
+      'crops',
+      columns: ['id', nameCol + ' as name', 'name_en'],
+    );
+  }
+
+  // ✅ قراءة المراحل
+  static Future<List<Map<String, dynamic>>> getStagesByCrop(int cropId) async {
+    final db = await getDatabase();
+    return await db.query(
+      'stages',
+      columns: ['id', nameCol + ' as name'],
+      where: 'crop_id = ?',
+      whereArgs: [cropId],
+    );
+  }
+
+  // ✅ قراءة الأمراض
+  static Future<List<Map<String, dynamic>>> getDiseasesByCropAndStage(
+      int cropId, int stageId) async {
+    final db = await getDatabase();
+    return await db.rawQuery('''
+      SELECT d.id,
+             d.$nameCol AS name,
+             d.default_image,
+             d.$symptomsCol AS symptoms,
+             d.$causeCol AS cause,
+             d.$preventiveCol AS preventive_measures,
+             d.$chemicalCol AS chemical_treatment,
+             d.$alternativeCol AS alternative_treatment
+      FROM diseases d
+      JOIN disease_crop_stage ds ON ds.disease_id = d.id
+      WHERE ds.stage_id = ? AND ds.crop_id = ?
+    ''', [stageId, cropId]);
+  }
+
+  // ================= Web JSON =================
+  static Map<int, dynamic> _jsonData = {};
+
+  static Future<void> loadJson(String assetPath) async {
+    if (!kIsWeb) return;
+    final data = await rootBundle.loadString(assetPath);
+    final list = json.decode(data) as List<dynamic>;
+    _jsonData.clear();
+    for (var crop in list) {
+      _jsonData[crop['id']] = crop;
+    }
+  }
+
+  // ✅ المحاصيل من JSON
+  static Future<List<Map<String, dynamic>>> getCropsFromJson() async {
+    return _jsonData.values.map((c) => {
+          'id': c['id'],
+          'name': isArabic ? c['name'] : c['name_en'],
+          'name_en': c['name_en'],
+        }).toList();
+  }
+
+  // ✅ المراحل من JSON
+  static Future<List<Map<String, dynamic>>> getStagesByCropFromJson(
+      int cropId) async {
+    final crop = _jsonData[cropId];
+    if (crop == null) return [];
+    final stages = crop['stages'] as List<dynamic>;
+    return stages.map((s) => {
+          'id': s['id'],
+          'name': isArabic ? s['name'] : s['name_en'],
+          'diseases': s['diseases'],
+        }).toList();
+  }
+
+  // ✅ الأمراض من JSON
+  static Future<List<Map<String, dynamic>>> getDiseasesByCropAndStageFromJson(
+      int cropId, int stageId) async {
+    final stages = await getStagesByCropFromJson(cropId);
+    final stage =
+        stages.firstWhere((s) => s['id'] == stageId, orElse: () => {});
+    if (stage.isEmpty) return [];
+    final diseases = stage['diseases'] as List<dynamic>;
+    return diseases.map((d) => {
+          'id': d['id'],
+          'name': isArabic ? d['name'] : d['name_en'],
+          'default_image': d['default_image'],
+          'symptoms': isArabic ? d['symptoms'] : d['symptoms_en'],
+          'cause': isArabic ? d['cause'] : d['cause_en'],
+          'preventive_measures': (isArabic
+                  ? d['preventive_measures']
+                  : d['preventive_measures_en'])
+              .join(", "),
+          'chemical_treatment':
+              isArabic ? d['chemical_treatment'] : d['chemical_treatment_en'],
+          'alternative_treatment': isArabic
+              ? d['alternative_treatment']
+              : d['alternative_treatment_en'],
+        }).toList();
+  }
+}
+
+// ================== Main App ==================
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (kIsWeb) {
+    await DatabaseHelper.loadJson("assets/plant_relational.json");
+  }
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -19,11 +173,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale = Locale('en');
-
+  Locale _locale = const Locale('en');
   void _setLocale(Locale locale) {
-    setState(() => _locale = locale);
-  }
+  setState(() {
+    _locale = locale;
+    DatabaseHelper.appLanguageCode = locale.languageCode; // هنا التحديث
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +189,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green, fontFamily: 'Arial'),
       locale: _locale,
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('ar', ''),
-      ],
+      supportedLocales: const [Locale('en', ''), Locale('ar', '')],
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -47,94 +201,218 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class SplashScreen extends StatelessWidget {
+// ================== Splash Screen ==================
+class SplashScreen extends StatefulWidget {
   final Function(Locale) onLocaleChange;
-  SplashScreen({required this.onLocaleChange});
+  const SplashScreen({required this.onLocaleChange, Key? key}) : super(key: key);
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late AnimationController _logoController;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+
+  late AnimationController _buttonsController;
+  late List<Animation<Offset>> _slideAnimations;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // ✅ Logo Animation
+    _logoController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _fadeAnimation =
+        CurvedAnimation(parent: _logoController, curve: Curves.easeIn);
+    _scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+      CurvedAnimation(parent: _logoController, curve: Curves.easeOutBack),
+    );
+    _logoController.forward();
+
+    // ✅ Buttons Animation
+    _buttonsController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    _slideAnimations = List.generate(5, (index) {
+      final start = index * 0.1;
+      final end = start + 0.5;
+      return Tween<Offset>(
+        begin: const Offset(0, 1),
+        end: Offset.zero,
+      ).animate(CurvedAnimation(
+        parent: _buttonsController,
+        curve: Interval(start, end, curve: Curves.easeOut),
+      ));
+    });
+
+    _buttonsController.forward();
+  }
+
+  @override
+  void dispose() {
+    _logoController.dispose();
+    _buttonsController.dispose();
+    super.dispose();
+  }
+
+  Widget _buildAnimatedButton(
+      {required String text,
+      required IconData icon,
+      required VoidCallback onPressed,
+      required Animation<Offset> animation}) {
+    return SlideTransition(
+      position: animation,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green[200], // ✅ لون موحّد
+            foregroundColor: Colors.black87,
+            minimumSize: const Size(double.infinity, 55),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            elevation: 2,
+          ),
+          onPressed: onPressed,
+          icon: Icon(icon, size: 20),
+          label: Text(text, style: const TextStyle(fontSize: 17)),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+
     return Scaffold(
-      backgroundColor: Colors.green[50],
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('assets/logo.png', height: 120),
-              SizedBox(height: 30),
-              Text(
-                t.welcomeText,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 40),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => DiagnosisPage()));
-                },
-                child: Text(t.diagnosePlant),
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => ExpertsPage()));
-                },
-                child: Text(t.contactExperts),
-              ),
-              SizedBox(height: 12),
-              // ✅ زر الآفات والأمراض بدلاً من منتجاتنا
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => PestsDiseasesPage()));
-                },
-                child: Text("الآفات والأمراض"),
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => AwarenessPage()));
-                },
-                child: Text(t.awarenessGuide),
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(minimumSize: Size(double.infinity, 50)),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AlertDialog(
-                      title: Text(t.changeLanguage),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ListTile(
-                            title: Text('English'),
-                            onTap: () {
-                              onLocaleChange(Locale('en'));
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            title: Text('العربية'),
-                            onTap: () {
-                              onLocaleChange(Locale('ar'));
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFE8F5E9), Color(0xFFFFFFFF)], // 🌿 خلفية مريحة
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: FadeTransition(
+          opacity: _fadeAnimation,
+          child: ScaleTransition(
+            scale: _scaleAnimation,
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // ✅ Logo
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Image.asset("assets/logo.png", fit: BoxFit.contain),
                       ),
                     ),
-                  );
-                },
-                child: Text(t.changeLanguage),
+                    const SizedBox(height: 30),
+
+                    // ✅ Welcome text
+                    Text(
+                      t.welcomeText,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                        letterSpacing: 1.1,
+                      ),
+                    ),
+                    const SizedBox(height: 35),
+
+                    // ✅ Buttons with slide animation
+                    _buildAnimatedButton(
+                      text: t.diagnosePlant,
+                      icon: Icons.search,
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => DiagnosisPage()));
+                      },
+                      animation: _slideAnimations[0],
+                    ),
+                    _buildAnimatedButton(
+                      text: t.contactExperts,
+                      icon: Icons.person,
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => ExpertsPage()));
+                      },
+                      animation: _slideAnimations[1],
+                    ),
+                    _buildAnimatedButton(
+                      text: t.pestsDiseases, // ✅ مترجم بدل النص الثابت
+                      icon: Icons.bug_report,
+                      onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const PestsDiseasesPage()),
+                        );
+                        },
+                      animation: _slideAnimations[2],
+                    ),
+
+                    _buildAnimatedButton(
+                      text: t.awarenessGuide,
+                      icon: Icons.menu_book,
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => AwarenessPage()));
+                      },
+                      animation: _slideAnimations[3],
+                    ),
+                    _buildAnimatedButton(
+                      text: t.changeLanguage,
+                      icon: Icons.language,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text(t.changeLanguage),
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.language),
+                                  title: const Text('English'),
+                                  onTap: () {
+                                    widget.onLocaleChange(const Locale('en'));
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.language),
+                                  title: const Text('العربية'),
+                                  onTap: () {
+                                    widget.onLocaleChange(const Locale('ar'));
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      animation: _slideAnimations[4],
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -142,6 +420,7 @@ class SplashScreen extends StatelessWidget {
   }
 }
 
+// ================== Diagnosis Page ==================
 class DiagnosisPage extends StatefulWidget {
   const DiagnosisPage({Key? key}) : super(key: key);
 
@@ -159,6 +438,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
   final picker = ImagePicker();
   bool _loading = false;
 
+  // 📌 اختيار صورة
   Future<void> pickImage() async {
     if (kIsWeb) {
       final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -177,8 +457,9 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
     }
   }
 
+  // 📌 API
   Future<void> diagnosePlant(Uint8List imageBytes, String filename) async {
-    final uri = Uri.parse('https://mohashaher-backend-fastapi.hf.space/predict');
+    final uri = Uri.parse('https://mohashaher-backend-fastapi.hf.space/predict'); // عدّل الرابط
     final request = http.MultipartRequest('POST', uri);
 
     request.files.add(http.MultipartFile.fromBytes(
@@ -193,6 +474,8 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
       final response = await request.send();
       if (response.statusCode == 200) {
         final respStr = await response.stream.bytesToString();
+		print("📌 Status: ${response.statusCode}");
+        print("📌 Response: $respStr");
         final data = json.decode(respStr);
         final diseaseId = data['disease_id'] as String?;
         final conf = (data['confidence'] as num?)?.toDouble();
@@ -209,7 +492,9 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
           _confidence = null;
         });
       }
-    } catch (e) {
+    } catch (e, stacktrace) {
+      print("❌ Error: $e");
+      print("📌 Stacktrace: $stacktrace");
       setState(() {
         _disease = "Error: $e";
         _treatment = null;
@@ -241,6 +526,7 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // زر اختيار صورة
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green[600],
@@ -258,6 +544,8 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
                   ),
                 ),
                 const SizedBox(height: 20),
+
+                // صورة مختارة
                 if (_imageFile != null || _webImage != null)
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16),
@@ -266,7 +554,11 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
                         : Image.memory(_webImage!, height: 220, fit: BoxFit.cover),
                   ),
                 const SizedBox(height: 20),
+
+                // تحميل
                 if (_loading) const CircularProgressIndicator(color: Colors.green),
+
+                // النتائج
                 if (_disease != null && !_loading)
                   Card(
                     color: Colors.green[50],
@@ -310,30 +602,30 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
   }
 }
 
+// ================== Experts Page ==================
 class ExpertsPage extends StatelessWidget {
+  const ExpertsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(title: Text(t.experts)),
-      body: Center(
-        child: Text(t.expertsPlaceholder, style: TextStyle(fontSize: 18)),
-      ),
+      body: Center(child: Text(t.expertsPlaceholder)),
     );
   }
 }
-
-
-
+// ================== Pests & Diseases Page ==================
 class PestsDiseasesPage extends StatefulWidget {
+  const PestsDiseasesPage({Key? key}) : super(key: key);
   @override
-  _PestsDiseasesPageState createState() => _PestsDiseasesPageState();
+  State<PestsDiseasesPage> createState() => _PestsDiseasesPageState();
 }
 
 class _PestsDiseasesPageState extends State<PestsDiseasesPage> {
-  List<Map<String, dynamic>> _crops = [];
-  List<Map<String, dynamic>> _diseases = [];
-  int? _selectedCropId;
+  List<Map<String, dynamic>> crops = [];
+  int? selectedCropId;
+  List<Map<String, dynamic>> stages = [];
+  Map<int, List<Map<String, dynamic>>> stageDiseases = {};
 
   @override
   void initState() {
@@ -342,122 +634,145 @@ class _PestsDiseasesPageState extends State<PestsDiseasesPage> {
   }
 
   Future<void> _loadCrops() async {
-    final db = await DatabaseHelper.database;
-    final crops = await db.query('crops');
-	print("✅ Loaded crops: $crops");
-    setState(() {
-      _crops = crops;
-    });
+    final data = kIsWeb
+        ? await DatabaseHelper.getCropsFromJson()
+        : await DatabaseHelper.getCrops();
+    print("📌 Crops Loaded: $data"); // ← تحقق
+    setState(() => crops = data);
   }
 
-  Future<void> _loadDiseases(int cropId) async {
-    final db = await DatabaseHelper.database;
-    final diseases =
-        await db.query('diseases', where: 'crop_id = ?', whereArgs: [cropId]);
+  Future<void> _loadStages(int cropId) async {
+    final data = kIsWeb
+        ? await DatabaseHelper.getStagesByCropFromJson(cropId)
+        : await DatabaseHelper.getStagesByCrop(cropId);
     setState(() {
-      _selectedCropId = cropId;
-      _diseases = diseases;
+      stages = data;
+      stageDiseases.clear();
     });
-  }
-
-  void _openDiseaseDetails(Map<String, dynamic> disease) async {
-    final db = await DatabaseHelper.database;
-    final details = await db.query('disease_details',
-        where: 'disease_id = ?', whereArgs: [disease['id']]);
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => DiseaseDetailsPage(
-          disease: disease,
-          details: details,
-        ),
-      ),
-    );
+    for (var stage in data) {
+      final diseases = kIsWeb
+          ? await DatabaseHelper.getDiseasesByCropAndStageFromJson(
+              cropId, stage['id'])
+          : await DatabaseHelper.getDiseasesByCropAndStage(
+              cropId, stage['id']);
+      setState(() => stageDiseases[stage['id']] = diseases);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!; // ✅ الترجمة
+
     return Scaffold(
-      appBar: AppBar(title: const Text("الآفات والأمراض")),
-      body: Column(
-        children: [
-          // 🔽 Dropdown لاختيار المحصول
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DropdownButton<int>(
-              hint: const Text("اختر المحصول"),
-              isExpanded: true,
-              value: _selectedCropId,
-              items: _crops
-                  .map((crop) => DropdownMenuItem<int>(
-                        value: crop['id'] as int,
-                        child: Row(
-                          children: [
-                            if (crop['image'] != null)
-                              Image.asset(
-                                crop['image'],
-                                width: 32,
-                                height: 32,
-                                fit: BoxFit.cover,
-                              ),
-                            const SizedBox(width: 10),
-                            Text(crop['name']),
-                          ],
-                        ),
-                      ))
-                  .toList(),
-              onChanged: (val) {
-                if (val != null) {
-                  _loadDiseases(val);
+      appBar: AppBar(title: Text(t.pestsDiseases)),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 🔽 القائمة المنسدلة للمحاصيل
+            DropdownButtonFormField<int>(
+              decoration: InputDecoration(
+                labelText: t.selectCrop,
+                border: const OutlineInputBorder(),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              ),
+              value: selectedCropId,
+              items: crops.map((crop) {
+                final imageName = crop['name_en']?.toString().toLowerCase() ?? '';
+                // ✅ عرض اسم المحصول حسب اللغة
+                final cropName = Localizations.localeOf(context).languageCode == 'ar'
+                    ? crop['name']
+                    : crop['name_en'] ?? crop['name'];
+
+                return DropdownMenuItem<int>(
+                  value: crop['id'],
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/plantix_icons/$imageName.jpg',
+                        width: 32,
+                        height: 32,
+                        errorBuilder: (_, __, ___) =>
+                            const Icon(Icons.image_not_supported, size: 24),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(cropName),
+                    ],
+                  ),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() => selectedCropId = value);
+                  _loadStages(value);
                 }
               },
             ),
-          ),
+            const SizedBox(height: 20),
 
-          // 🦠 قائمة الأمراض
-          Expanded(
-            child: _diseases.isEmpty
-                ? const Center(child: Text("اختر محصولاً لعرض الأمراض"))
-                : ListView.builder(
-                    itemCount: _diseases.length,
-                    itemBuilder: (context, index) {
-                      final disease = _diseases[index];
-                      return GestureDetector(
-                        onTap: () => _openDiseaseDetails(disease),
-                        child: Card(
-                          margin: const EdgeInsets.all(8),
-                          child: ListTile(
-                            leading: disease['image'] != null
-                                ? Image.asset(
-                                    disease['image'],
-                                    width: 48,
-                                    height: 48,
-                                    fit: BoxFit.cover,
-                                  )
-                                : const Icon(Icons.bug_report,
-                                    color: Colors.redAccent),
-                            title: Text(disease['name']),
-                            subtitle: Text(disease['stage'] ?? ""),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-          ),
-        ],
+            // 📌 عرض المراحل والأمراض
+            Expanded(
+              child: selectedCropId == null
+                  ? Center(child: Text(t.noCropSelected))
+                  : ListView(
+                      children: stages.map((stage) {
+                        final diseases = stageDiseases[stage['id']] ?? [];
+                        return ExpansionTile(
+                          title: Text("${t.stage}: ${stage['name']}"),
+                          children: diseases.isEmpty
+                              ? [ListTile(title: Text(t.noDiseases))]
+                              : diseases.map((disease) {
+                                  return Card(
+                                    margin: const EdgeInsets.all(8),
+                                    child: ListTile(
+                                      leading: disease['default_image'] != null
+                                          ? Image.asset(
+                                              "assets/disease_images/${disease['default_image']}",
+                                              width: 50,
+                                              height: 50,
+                                              fit: BoxFit.cover,
+                                              errorBuilder: (_, __, ___) =>
+                                                  const Icon(Icons.bug_report),
+                                            )
+                                          : const Icon(Icons.bug_report),
+                                      title: Text(disease['name'] ?? ""),
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => DiseaseDetailsPage(
+                                              disease: disease,
+                                              details: disease,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                }).toList(),
+                        );
+                      }).toList(),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
+// ================== Disease Details ==================
 class DiseaseDetailsPage extends StatelessWidget {
   final Map<String, dynamic> disease;
-  final List<Map<String, dynamic>> details;
+  final Map<String, dynamic> details;
 
-  const DiseaseDetailsPage(
-      {Key? key, required this.disease, required this.details})
-      : super(key: key);
+  const DiseaseDetailsPage({
+    Key? key,
+    required this.disease,
+    required this.details,
+  }) : super(key: key);
 
   Widget _buildDetailSection(String title, String? content) {
     if (content == null || content.isEmpty) return const SizedBox.shrink();
@@ -466,9 +781,10 @@ class DiseaseDetailsPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
           const SizedBox(height: 4),
           Text(content, style: const TextStyle(fontSize: 14)),
         ],
@@ -478,28 +794,36 @@ class DiseaseDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final detail = details.isNotEmpty ? details.first : {};
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(disease['name'] ?? "تفاصيل المرض")),
+      appBar: AppBar(
+        title: Text(disease['name'] ?? t.diseaseDetails),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (disease['image'] != null)
+            if (disease['default_image'] != null)
               Center(
                 child: Image.asset(
-                  disease['image'],
+                  "assets/disease_images/${disease['default_image']}",
                   height: 200,
                   fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) =>
+                      const Icon(Icons.broken_image, size: 100),
                 ),
               ),
             const SizedBox(height: 16),
-            _buildDetailSection("الأعراض", detail['symptoms']),
-            _buildDetailSection("الأسباب", detail['causes']),
-            _buildDetailSection("الإجراءات الوقائية", detail['prevention']),
-            _buildDetailSection("العلاج", detail['treatment']),
+            _buildDetailSection(t.symptoms, disease['symptoms']),
+            _buildDetailSection(t.cause, disease['cause']),
+            _buildDetailSection(
+                t.preventiveMeasures, disease['preventive_measures']),
+            _buildDetailSection(
+                t.chemicalTreatment, disease['chemical_treatment']),
+            _buildDetailSection(
+                t.alternativeTreatment, disease['alternative_treatment']),
           ],
         ),
       ),
@@ -507,183 +831,14 @@ class DiseaseDetailsPage extends StatelessWidget {
   }
 }
 
+// ================== Awareness Page ==================
 class AwarenessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
     return Scaffold(
       appBar: AppBar(title: Text(t.awarenessGuide)),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          _buildTile(
-            icon: Icons.eco,
-            title: t.basicFarming,
-            imagePath: 'assets/images/soil.jpg',
-            content: [
-              t.soilAdvice,
-              t.sunAdvice,
-              t.wateringAdvice,
-            ],
-          ),
-          _buildTile(
-            icon: Icons.shield,
-            title: t.diseasePrevention,
-            imagePath: 'assets/images/protection.jpg',
-            content: [
-              t.toolSanitation,
-              t.cropRotation,
-              t.seedSelection,
-            ],
-          ),
-          _buildTile(
-            icon: Icons.bug_report,
-            title: t.naturalPestControl,
-            imagePath: 'assets/images/pests.jpg',
-            content: [
-              t.plantRepellents,
-              t.organicSprays,
-              t.beneficialInsects,
-            ],
-          ),
-          _buildTileWithWidget(
-            icon: Icons.medical_information,
-            title: t.commonDiseases,
-            imagePath: 'assets/images/diseases.jpg',
-            child: _diseaseTable(t),
-          ),
-          _buildTileWithWidget(
-            icon: Icons.calendar_month,
-            title: t.seasonalTips,
-            imagePath: 'assets/images/seasons.jpg',
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _subSection('🌸 ${t.spring}', [t.spring1, t.spring2]),
-                _subSection('☀️ ${t.summer}', [t.summer1, t.summer2]),
-                _subSection('🍂 ${t.autumn}', [t.autumn1, t.autumn2]),
-                _subSection('❄️ ${t.winter}', [t.winter1, t.winter2]),
-              ],
-            ),
-          ),
-          _buildTile(
-            icon: Icons.menu_book,
-            title: t.resources,
-            imagePath: 'assets/images/books.jpg',
-            content: [
-              'FAO: https://www.fao.org',
-              'PlantVillage: https://plantvillage.psu.edu',
-              t.youtubeChannels,
-            ],
-          ),
-          _buildTile(
-            icon: Icons.support_agent,
-            title: t.needHelp,
-            imagePath: 'assets/images/support.jpg',
-            content: [t.contactExpertsInfo],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTile({
-    required IconData icon,
-    required String title,
-    required String imagePath,
-    required List<String> content,
-  }) {
-    return ExpansionTile(
-      leading: Icon(icon, color: Colors.green),
-      title: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-      children: [
-        const SizedBox(height: 8),
-        Image.asset(imagePath, height: 150, fit: BoxFit.cover),
-        const SizedBox(height: 8),
-        ...content.map((item) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              child: Text(item, style: const TextStyle(fontSize: 16)),
-            )),
-        const SizedBox(height: 8),
-      ],
-    );
-  }
-
-  Widget _buildTileWithWidget({
-    required IconData icon,
-    required String title,
-    required String imagePath,
-    required Widget child,
-  }) {
-    return ExpansionTile(
-      leading: Icon(icon, color: Colors.green),
-      title: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-      children: [
-        const SizedBox(height: 8),
-        Image.asset(imagePath, height: 150, fit: BoxFit.cover),
-        const SizedBox(height: 8),
-        Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: child),
-        const SizedBox(height: 8),
-      ],
-    );
-  }
-
-  Widget _subSection(String title, List<String> items) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          ...items.map((item) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
-                child: Text('• $item', style: const TextStyle(fontSize: 15)),
-              )),
-        ],
-      ),
-    );
-  }
-
-  Widget _diseaseTable(AppLocalizations t) {
-    return Table(
-      border: TableBorder.all(color: Colors.grey),
-      columnWidths: const {
-        0: FractionColumnWidth(0.25),
-        1: FractionColumnWidth(0.35),
-        2: FractionColumnWidth(0.4),
-      },
-      children: [
-        TableRow(
-          decoration: const BoxDecoration(color: Color(0xFFDEFDE0)),
-          children: [
-            _tableCell(t.disease),
-            _tableCell(t.symptoms),
-            _tableCell(t.treatment),
-          ],
-        ),
-        _diseaseRow('البياض الدقيقي', 'طبقة بيضاء على الأوراق', 'تهوية جيدة + رش بالكبريت'),
-        _diseaseRow('اللفحة المتأخرة', 'بقع سوداء على الطماطم', 'مبيد نحاسي + إزالة المصاب'),
-        _diseaseRow('التعفن الجذري', 'اصفرار وموت تدريجي', 'تحسين التصريف + تقليل الري'),
-        _diseaseRow('المن', 'حشرات صغيرة تمتص العصارة', 'بخاخ النيم + ماء وصابون'),
-      ],
-    );
-  }
-
-  TableRow _diseaseRow(String a, String b, String c) {
-    return TableRow(
-      children: [
-        _tableCell(a),
-        _tableCell(b),
-        _tableCell(c),
-      ],
-    );
-  }
-
-  Widget _tableCell(String text) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(text, style: const TextStyle(fontSize: 15)),
+      body: const Center(child: Text("صفحة التوعية")),
     );
   }
 }

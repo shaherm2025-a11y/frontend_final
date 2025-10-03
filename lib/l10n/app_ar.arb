@@ -155,7 +155,19 @@
 
   "raspberry_healthy": "توت علّيق سليم",
 
-  "diagnosis_failed": "فشل التشخيص."
+  "diagnosis_failed": "فشل التشخيص.",
+  "pestsDiseases": "الآفات والأمراض",
+  "pestsDiseases1": "الآفات والأمراض",
+  "selectCrop": "اختر المحصول",
+  "noCropSelected": "الرجاء اختيار محصول",
+  "stage": "مرحلة",
+  "noDiseases": "لا توجد أمراض",
 
+  "diseaseDetails": "تفاصيل المرض",
+  "symptoms": "الأعراض",
+  "cause": "الأسباب",
+  "preventiveMeasures": "الإجراءات الوقائية",
+  "chemicalTreatment": "المكافحة الكيميائية",
+  "alternativeTreatment": "المكافحة العضوية"
 }
 

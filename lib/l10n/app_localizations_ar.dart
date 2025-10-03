@@ -410,4 +410,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get diagnosis_failed => 'فشل التشخيص.';
+
+  @override
+  String get pestsDiseases => 'الآفات والأمراض';
+
+  @override
+  String get pestsDiseases1 => 'الآفات والأمراض';
+
+  @override
+  String get selectCrop => 'اختر المحصول';
+
+  @override
+  String get noCropSelected => 'الرجاء اختيار محصول';
+
+  @override
+  String get stage => 'مرحلة';
+
+  @override
+  String get noDiseases => 'لا توجد أمراض';
+
+  @override
+  String get diseaseDetails => 'تفاصيل المرض';
+
+  @override
+  String get cause => 'الأسباب';
+
+  @override
+  String get preventiveMeasures => 'الإجراءات الوقائية';
+
+  @override
+  String get chemicalTreatment => 'المكافحة الكيميائية';
+
+  @override
+  String get alternativeTreatment => 'المكافحة العضوية';
 }
