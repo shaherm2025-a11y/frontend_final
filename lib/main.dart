@@ -695,7 +695,7 @@ class _PestsDiseasesPageState extends State<PestsDiseasesPage> {
               ),
               value: selectedCropId,
               items: crops.map((crop) {
-                final imageName = crop['name_en']?.toString().toLowerCase() ?? '';
+                Image.asset('assets/plantix_icons/${crop['image']}')
                 // ✅ عرض اسم المحصول حسب اللغة
                 final cropName = Localizations.localeOf(context).languageCode == 'ar'
                     ? crop['name']
