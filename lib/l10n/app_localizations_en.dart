@@ -446,4 +446,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get alternativeTreatment => 'Alternative Treatment';
+
+  @override
+  String get appTitle => 'Plant Diagnosis';
+
+  @override
+  String get awareness => 'Awareness';
+
+  @override
+  String get aboutApp => 'About App';
+
+  @override
+  String get selectCropFirst => 'Please select a crop first';
+
+  @override
+  String get noDiseasesFound => 'No diseases found for this stage';
+
+  @override
+  String get selectStage => 'Select Stage';
+
+  @override
+  String get causes => 'Causes';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get errorLoadingData => 'An error occurred while loading data.';
+
+  @override
+  String get tryAgain => 'Try Again';
 }

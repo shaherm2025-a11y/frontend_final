@@ -13,7 +13,8 @@ import 'package:flutter/services.dart';
 import 'l10n/app_localizations.dart';
 import 'utils/localization_helper.dart';
 import 'package:file_picker/file_picker.dart';
-// ================= Database Helper =================
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 // ================= Database Helper =================
 class DatabaseHelper {
   static Database? _db;
@@ -66,35 +67,36 @@ class DatabaseHelper {
     );
   }
 
-  // ✅ قراءة المراحل
-  static Future<List<Map<String, dynamic>>> getStagesByCrop(int cropId) async {
-    final db = await getDatabase();
-    return await db.query(
-      'stages',
-      columns: ['id', nameCol + ' as name'],
-      where: 'crop_id = ?',
-      whereArgs: [cropId],
-    );
-  }
+ // ✅ قراءة المراحل حسب المحصول (مع علاقة جدول الربط)
+static Future<List<Map<String, dynamic>>> getStagesByCrop(int cropId) async {
+  final db = await getDatabase();
+  return await db.rawQuery('''
+    SELECT DISTINCT s.id, s.$nameCol AS name
+    FROM stages s
+    JOIN disease_crop_stage dcs ON dcs.stage_id = s.id
+    WHERE dcs.crop_id = ?
+    ORDER BY s.id
+  ''', [cropId]);
+}
 
-  // ✅ قراءة الأمراض
-  static Future<List<Map<String, dynamic>>> getDiseasesByCropAndStage(
-      int cropId, int stageId) async {
-    final db = await getDatabase();
-    return await db.rawQuery('''
-      SELECT d.id,
-             d.$nameCol AS name,
-             d.default_image,
-             d.$symptomsCol AS symptoms,
-             d.$causeCol AS cause,
-             d.$preventiveCol AS preventive_measures,
-             d.$chemicalCol AS chemical_treatment,
-             d.$alternativeCol AS alternative_treatment
-      FROM diseases d
-      JOIN disease_crop_stage ds ON ds.disease_id = d.id
-      WHERE ds.stage_id = ? AND ds.crop_id = ?
-    ''', [stageId, cropId]);
-  }
+// ✅ قراءة الأمراض حسب المحصول والمرحلة (كما هي لكن منضبطة)
+static Future<List<Map<String, dynamic>>> getDiseasesByCropAndStage(
+    int cropId, int stageId) async {
+  final db = await getDatabase();
+  return await db.rawQuery('''
+    SELECT DISTINCT d.id,
+           d.$nameCol AS name,
+           d.default_image,
+           d.$symptomsCol AS symptoms,
+           d.$causeCol AS cause,
+           d.$preventiveCol AS preventive_measures,
+           d.$chemicalCol AS chemical_treatment,
+           d.$alternativeCol AS alternative_treatment
+    FROM diseases d
+    JOIN disease_crop_stage ds ON ds.disease_id = d.id
+    WHERE ds.stage_id = ? AND ds.crop_id = ?
+  ''', [stageId, cropId]);
+}
 
   // ================= Web JSON =================
   static Map<int, dynamic> _jsonData = {};
@@ -161,9 +163,14 @@ class DatabaseHelper {
 // ================== Main App ==================
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   if (kIsWeb) {
     await DatabaseHelper.loadJson("assets/plant_relational.json");
+  } else if (Platform.isWindows || Platform.isLinux) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
   }
+
   runApp(MyApp());
 }
 
@@ -440,22 +447,30 @@ class _DiagnosisPageState extends State<DiagnosisPage> {
 
   // 📌 اختيار صورة
   Future<void> pickImage() async {
-    if (kIsWeb) {
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        final bytes = await pickedFile.readAsBytes();
-        setState(() => _webImage = bytes);
-        await diagnosePlant(bytes, pickedFile.name);
-      }
-    } else {
-      final pickedFile = await picker.pickImage(source: ImageSource.camera);
-      if (pickedFile != null) {
-        final file = File(pickedFile.path);
-        setState(() => _imageFile = file);
-        await diagnosePlant(await file.readAsBytes(), pickedFile.name);
-      }
+  // 📌 الحالة الخاصة بالويب والويندوز: اختيار صورة من الملفات (وليس الكاميرا)
+  if (kIsWeb || Platform.isWindows) {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+      setState(() {
+        if (kIsWeb)
+          _webImage = bytes;
+        else
+          _imageFile = File(pickedFile.path);
+      });
+      await diagnosePlant(bytes, pickedFile.name);
+    }
+  } 
+  // 📱 الموبايل: التقاط صورة بالكاميرا
+  else {
+    final pickedFile = await picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      setState(() => _imageFile = file);
+      await diagnosePlant(await file.readAsBytes(), pickedFile.name);
     }
   }
+}
 
   // 📌 API
   Future<void> diagnosePlant(Uint8List imageBytes, String filename) async {

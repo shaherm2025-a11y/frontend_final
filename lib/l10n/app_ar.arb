@@ -168,6 +168,16 @@
   "cause": "الأسباب",
   "preventiveMeasures": "الإجراءات الوقائية",
   "chemicalTreatment": "المكافحة الكيميائية",
-  "alternativeTreatment": "المكافحة العضوية"
+  "alternativeTreatment": "المكافحة العضوية",
+  "appTitle": "تشخيص النبات",
+  "awareness": "التوعية",
+  "aboutApp": "حول التطبيق",
+  "selectCropFirst": "الرجاء اختيار المحصول أولاً",
+  "noDiseasesFound": "لا توجد أمراض لهذه المرحلة",
+  "selectStage": "اختر المرحلة",
+  "causes": "الأسباب",
+  "loading": "جاري التحميل...",
+  "errorLoadingData": "حدث خطأ أثناء تحميل البيانات.",
+  "tryAgain": "إعادة المحاولة"
 }
 

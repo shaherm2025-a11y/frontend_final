@@ -172,7 +172,17 @@
   "cause": "Cause",
   "preventiveMeasures": "Preventive Measures",
   "chemicalTreatment": "Chemical Treatment",
-  "alternativeTreatment": "Alternative Treatment"
+  "alternativeTreatment": "Alternative Treatment",
+  "appTitle": "Plant Diagnosis",
+  "awareness": "Awareness",
+  "aboutApp": "About App",
+  "selectCropFirst": "Please select a crop first",
+  "noDiseasesFound": "No diseases found for this stage",
+  "selectStage": "Select Stage",
+  "causes": "Causes",
+  "loading": "Loading...",
+  "errorLoadingData": "An error occurred while loading data.",
+  "tryAgain": "Try Again"
 
 }
 

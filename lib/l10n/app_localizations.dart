@@ -913,6 +913,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Alternative Treatment'**
   String get alternativeTreatment;
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Plant Diagnosis'**
+  String get appTitle;
+
+  /// No description provided for @awareness.
+  ///
+  /// In en, this message translates to:
+  /// **'Awareness'**
+  String get awareness;
+
+  /// No description provided for @aboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About App'**
+  String get aboutApp;
+
+  /// No description provided for @selectCropFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a crop first'**
+  String get selectCropFirst;
+
+  /// No description provided for @noDiseasesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No diseases found for this stage'**
+  String get noDiseasesFound;
+
+  /// No description provided for @selectStage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Stage'**
+  String get selectStage;
+
+  /// No description provided for @causes.
+  ///
+  /// In en, this message translates to:
+  /// **'Causes'**
+  String get causes;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @errorLoadingData.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while loading data.'**
+  String get errorLoadingData;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get tryAgain;
 }
 
 class _AppLocalizationsDelegate

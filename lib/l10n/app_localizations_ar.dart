@@ -443,4 +443,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get alternativeTreatment => 'المكافحة العضوية';
+
+  @override
+  String get appTitle => 'تشخيص النبات';
+
+  @override
+  String get awareness => 'التوعية';
+
+  @override
+  String get aboutApp => 'حول التطبيق';
+
+  @override
+  String get selectCropFirst => 'الرجاء اختيار المحصول أولاً';
+
+  @override
+  String get noDiseasesFound => 'لا توجد أمراض لهذه المرحلة';
+
+  @override
+  String get selectStage => 'اختر المرحلة';
+
+  @override
+  String get causes => 'الأسباب';
+
+  @override
+  String get loading => 'جاري التحميل...';
+
+  @override
+  String get errorLoadingData => 'حدث خطأ أثناء تحميل البيانات.';
+
+  @override
+  String get tryAgain => 'إعادة المحاولة';
 }
