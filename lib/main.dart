@@ -847,13 +847,184 @@ class DiseaseDetailsPage extends StatelessWidget {
 }
 
 // ================== Awareness Page ==================
+
 class AwarenessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(title: Text(t.awarenessGuide)),
-      body: const Center(child: Text("صفحة التوعية")),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          _buildTile(
+            icon: Icons.eco,
+            title: t.basicFarming,
+            imagePath: 'assets/images/soil.jpg',
+            content: [
+              t.soilAdvice,
+              t.sunAdvice,
+              t.wateringAdvice,
+            ],
+          ),
+          _buildTile(
+            icon: Icons.shield,
+            title: t.diseasePrevention,
+            imagePath: 'assets/images/protection.jpg',
+            content: [
+              t.toolSanitation,
+              t.cropRotation,
+              t.seedSelection,
+            ],
+          ),
+          _buildTile(
+            icon: Icons.bug_report,
+            title: t.naturalPestControl,
+            imagePath: 'assets/images/pests.jpg',
+            content: [
+              t.plantRepellents,
+              t.organicSprays,
+              t.beneficialInsects,
+            ],
+          ),
+          _buildTileWithWidget(
+            icon: Icons.medical_information,
+            title: t.commonDiseases,
+            imagePath: 'assets/images/diseases.jpg',
+            child: _diseaseTable(t),
+          ),
+          _buildTileWithWidget(
+            icon: Icons.calendar_month,
+            title: t.seasonalTips,
+            imagePath: 'assets/images/seasons.jpg',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _subSection('🌸 ${t.spring}', [t.spring1, t.spring2]),
+                _subSection('☀️ ${t.summer}', [t.summer1, t.summer2]),
+                _subSection('🍂 ${t.autumn}', [t.autumn1, t.autumn2]),
+                _subSection('❄️ ${t.winter}', [t.winter1, t.winter2]),
+              ],
+            ),
+          ),
+          _buildTile(
+            icon: Icons.menu_book,
+            title: t.resources,
+            imagePath: 'assets/images/books.jpg',
+            content: [
+              'FAO: https://www.fao.org',
+              'PlantVillage: https://plantvillage.psu.edu',
+              t.youtubeChannels,
+            ],
+          ),
+          _buildTile(
+            icon: Icons.support_agent,
+            title: t.needHelp,
+            imagePath: 'assets/images/support.jpg',
+            content: [t.contactExpertsInfo],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTile({
+    required IconData icon,
+    required String title,
+    required String imagePath,
+    required List<String> content,
+  }) {
+    return ExpansionTile(
+      leading: Icon(icon, color: Colors.green),
+      title: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      children: [
+        const SizedBox(height: 8),
+        Image.asset(imagePath, height: 150, fit: BoxFit.cover),
+        const SizedBox(height: 8),
+        ...content.map((item) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: Text(item, style: const TextStyle(fontSize: 16)),
+            )),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
+
+  Widget _buildTileWithWidget({
+    required IconData icon,
+    required String title,
+    required String imagePath,
+    required Widget child,
+  }) {
+    return ExpansionTile(
+      leading: Icon(icon, color: Colors.green),
+      title: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      children: [
+        const SizedBox(height: 8),
+        Image.asset(imagePath, height: 150, fit: BoxFit.cover),
+        const SizedBox(height: 8),
+        Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: child),
+        const SizedBox(height: 8),
+      ],
+    );
+  }
+
+  Widget _subSection(String title, List<String> items) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ...items.map((item) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Text('• $item', style: const TextStyle(fontSize: 15)),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _diseaseTable(AppLocalizations t) {
+    return Table(
+      border: TableBorder.all(color: Colors.grey),
+      columnWidths: const {
+        0: FractionColumnWidth(0.25),
+        1: FractionColumnWidth(0.35),
+        2: FractionColumnWidth(0.4),
+      },
+      children: [
+        TableRow(
+          decoration: const BoxDecoration(color: Color(0xFFDEFDE0)),
+          children: [
+            _tableCell(t.disease),
+            _tableCell(t.symptoms),
+            _tableCell(t.treatment),
+          ],
+        ),
+        _diseaseRow('البياض الدقيقي', 'طبقة بيضاء على الأوراق', 'تهوية جيدة + رش بالكبريت'),
+        _diseaseRow('اللفحة المتأخرة', 'بقع سوداء على الطماطم', 'مبيد نحاسي + إزالة المصاب'),
+        _diseaseRow('التعفن الجذري', 'اصفرار وموت تدريجي', 'تحسين التصريف + تقليل الري'),
+        _diseaseRow('المن', 'حشرات صغيرة تمتص العصارة', 'بخاخ النيم + ماء وصابون'),
+      ],
+    );
+  }
+
+  TableRow _diseaseRow(String a, String b, String c) {
+    return TableRow(
+      children: [
+        _tableCell(a),
+        _tableCell(b),
+        _tableCell(c),
+      ],
+    );
+  }
+
+  Widget _tableCell(String text) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(text, style: const TextStyle(fontSize: 15)),
     );
   }
 }
